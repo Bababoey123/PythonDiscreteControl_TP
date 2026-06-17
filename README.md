@@ -56,16 +56,7 @@ Le framework de simulation permet :
 - L'enregistrement des données de simulation
 - L'analyse des performances temporelles
 
-### Modèles étudiés
-
-#### Double intégrateur
-
-Le double intégrateur constitue un cas d'étude classique pour :
-
-- L'analyse de stabilité
-- Le placement de pôles
-- La synthèse PID
-- La synthèse RST
+### Modèle étudié
 
 #### Système Ball & Beam
 
@@ -142,39 +133,6 @@ conda install -c conda-forge control
 
 ---
 
-## Utilisation
-
-### Correcteur PID
-
-```python
-from Control.DiscretePID import DiscretePID
-
-pid = DiscretePID(
-    kp=1.0,
-    ki=0.5,
-    kd=0.1,
-    dt=0.01
-)
-
-pid.setReference(1.0)
-
-u = pid.step(y)
-```
-
-### Correcteur RST
-
-```python
-from Control.RSTController import RSTController
-
-controller = RSTController(R, S, T)
-
-controller.setReference(1.0)
-
-u = controller.step(y)
-```
-
----
-
 ## Notebooks disponibles
 
 ### DoubleIntégrateurAnalyse.ipynb
@@ -215,6 +173,7 @@ Les outils intégrés permettent notamment de mesurer :
 - Erreur statique
 - Effort de commande
 - Qualité du suivi de consigne
+- Les marges de phase et de gain
 
 ---
 
@@ -245,10 +204,6 @@ Extensions possibles :
 
 ## Contexte pédagogique
 
-Ce projet a été développé dans le cadre de l'enseignement de la **commande numérique des systèmes dynamiques**. Il vise à fournir une base claire et modulaire pour expérimenter différentes méthodes de régulation et approfondir les concepts fondamentaux de la commande discrète.
+Ce projet a été développé dans le cadre di stage de fin de Licence au LAGEPP. Il vise à fournir une base claire et modulaire pour expérimenter différentes méthodes de régulation et approfondir les concepts fondamentaux de la commande discrète.
 
 ---
-
-## Auteur
-
-Projet réalisé dans le cadre d'un travail pratique de commande numérique utilisant Python pour l'analyse, la simulation et la synthèse de correcteurs PID et RST.
