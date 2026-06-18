@@ -1,27 +1,26 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="fr" data-content_root="../">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Models &mdash; Documentation PythonDiscreteControl_TP 1.0</title>
+  <title>Models &mdash; PythonDiscreteControl_TP 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-      <script src="../_static/translations.js?v=e6b791cb"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Control" href="control.html" />
-    <link rel="prev" title="Référence API" href="modules.html" /> 
+    <link rel="prev" title="API Reference" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,16 +36,16 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../overview.html">Vue d’ensemble</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Référence API</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Models.base.BaseNonlinearModel"><code class="docutils literal notranslate"><span class="pre">BaseNonlinearModel</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Models.base.BaseNonlinearModel.C"><code class="docutils literal notranslate"><span class="pre">BaseNonlinearModel.C</span></code></a></li>
@@ -65,15 +64,15 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-Models.BallBeam.ballbeam_config">BallBeam — configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-Models.BallBeam.TransferFunctions">BallBeam — fonctions de transfert</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-Models.BallBeam.TransferFunctions">BallBeam — transfer functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel"><code class="docutils literal notranslate"><span class="pre">TransferFunctionModel</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-Models.BallBeam.StateSpace">BallBeam — espace d’état linéaire</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-Models.BallBeam.StateSpace">BallBeam — linear state space</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Models.BallBeam.StateSpace.LinearStateSpaceModel"><code class="docutils literal notranslate"><span class="pre">LinearStateSpaceModel</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-Models.BallBeam.NonlinearDynamics">BallBeam — dynamique non linéaire</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-Models.BallBeam.NonlinearDynamics">BallBeam — nonlinear dynamics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Models.BallBeam.NonlinearDynamics.NonlinearBallBeamModel"><code class="docutils literal notranslate"><span class="pre">NonlinearBallBeamModel</span></code></a></li>
 </ul>
 </li>
@@ -101,10 +100,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">Référence API</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API Reference</a></li>
       <li class="breadcrumb-item active">Models</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/api/models.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+            <a href="../_sources/api/models.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -113,35 +112,35 @@
            <div itemprop="articleBody">
              
   <section id="module-Models.base">
-<span id="models"></span><h1>Models<a class="headerlink" href="#module-Models.base" title="Lien vers cette rubrique"></a></h1>
+<span id="models"></span><h1>Models<a class="headerlink" href="#module-Models.base" title="Link to this heading"></a></h1>
 <p>Abstract base classes for plant models.</p>
 <p>Any new plant must implement these interfaces so that the Simulation layer
 remains indifferent to the specific plant implementation.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="Models.base.BaseNonlinearModel">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.base.</span></span><span class="sig-name descname"><span class="pre">BaseNonlinearModel</span></span><a class="reference internal" href="../_modules/Models/base.html#BaseNonlinearModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.base.BaseNonlinearModel" title="Lien vers cette définition"></a></dt>
-<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.base.</span></span><span class="sig-name descname"><span class="pre">BaseNonlinearModel</span></span><a class="reference internal" href="../_modules/Models/base.html#BaseNonlinearModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.base.BaseNonlinearModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
 <p>Abstract base for nonlinear plant models.</p>
 <p>Subclasses must:
 - Set <code class="docutils literal notranslate"><span class="pre">self.C</span></code> in <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.
 - Implement <code class="docutils literal notranslate"><span class="pre">f(X,</span> <span class="pre">u)</span></code> returning the state derivative Ẋ.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseNonlinearModel.C">
-<span class="sig-name descname"><span class="pre">C</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseNonlinearModel.C" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">C</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseNonlinearModel.C" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Models.base.BaseNonlinearModel.f">
-<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/Models/base.html#BaseNonlinearModel.f"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.base.BaseNonlinearModel.f" title="Lien vers cette définition"></a></dt>
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/Models/base.html#BaseNonlinearModel.f"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.base.BaseNonlinearModel.f" title="Link to this definition"></a></dt>
 <dd><p>State derivative Ẋ = f(X, u).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> – State vector, shape (n, 1).</p></li>
 <li><p><strong>u</strong> – Scalar control input.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>State derivative, same shape as X.</p>
 </dd>
 </dl>
@@ -151,8 +150,8 @@ remains indifferent to the specific plant implementation.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.base.</span></span><span class="sig-name descname"><span class="pre">BaseLinearStateSpaceModel</span></span><a class="reference internal" href="../_modules/Models/base.html#BaseLinearStateSpaceModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel" title="Lien vers cette définition"></a></dt>
-<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.base.</span></span><span class="sig-name descname"><span class="pre">BaseLinearStateSpaceModel</span></span><a class="reference internal" href="../_modules/Models/base.html#BaseLinearStateSpaceModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Base class for linearised continuous/discrete state-space plant models.</p>
 <p>Subclasses must populate the following attributes in <code class="docutils literal notranslate"><span class="pre">__init__</span></code>:</p>
 <dl class="simple">
@@ -163,48 +162,48 @@ remains indifferent to the specific plant implementation.</p>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel.A">
-<span class="sig-name descname"><span class="pre">A</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.A" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">A</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.A" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel.B">
-<span class="sig-name descname"><span class="pre">B</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.B" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">B</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.B" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel.C">
-<span class="sig-name descname"><span class="pre">C</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.C" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">C</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.C" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel.D">
-<span class="sig-name descname"><span class="pre">D</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.D" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">D</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.D" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel.Ad">
-<span class="sig-name descname"><span class="pre">Ad</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.Ad" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">Ad</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.Ad" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel.Bd">
-<span class="sig-name descname"><span class="pre">Bd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.Bd" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">Bd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.Bd" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel.Cd">
-<span class="sig-name descname"><span class="pre">Cd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.Cd" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">Cd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.Cd" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.base.BaseLinearStateSpaceModel.Dd">
-<span class="sig-name descname"><span class="pre">Dd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.Dd" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">Dd</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#Models.base.BaseLinearStateSpaceModel.Dd" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <section id="module-Models.BallBeam.ballbeam_config">
-<span id="ballbeam-configuration"></span><h2>BallBeam — configuration<a class="headerlink" href="#module-Models.BallBeam.ballbeam_config" title="Lien vers cette rubrique"></a></h2>
+<span id="ballbeam-configuration"></span><h2>BallBeam — configuration<a class="headerlink" href="#module-Models.BallBeam.ballbeam_config" title="Link to this heading"></a></h2>
 <p>Ball-and-beam system physical parameters and simulation settings.</p>
 <p>All values are taken from the CTMS reference model:
 <a class="reference external" href="https://ctms.engin.umich.edu/CTMS/index.php?example=BallBeam&amp;section=ControlStateSpace">https://ctms.engin.umich.edu/CTMS/index.php?example=BallBeam&amp;section=ControlStateSpace</a></p>
@@ -234,15 +233,15 @@ remains indifferent to the specific plant implementation.</p>
 </dl>
 </section>
 <section id="module-Models.BallBeam.TransferFunctions">
-<span id="ballbeam-fonctions-de-transfert"></span><h2>BallBeam — fonctions de transfert<a class="headerlink" href="#module-Models.BallBeam.TransferFunctions" title="Lien vers cette rubrique"></a></h2>
+<span id="ballbeam-transfer-functions"></span><h2>BallBeam — transfer functions<a class="headerlink" href="#module-Models.BallBeam.TransferFunctions" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="Models.BallBeam.TransferFunctions.TransferFunctionModel">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.BallBeam.TransferFunctions.</span></span><span class="sig-name descname"><span class="pre">TransferFunctionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Models/BallBeam/TransferFunctions.html#TransferFunctionModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel" title="Lien vers cette définition"></a></dt>
-<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.BallBeam.TransferFunctions.</span></span><span class="sig-name descname"><span class="pre">TransferFunctionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Models/BallBeam/TransferFunctions.html#TransferFunctionModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Continuous and ZOH-discretised transfer function for a generic plant.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.BallBeam.TransferFunctions.TransferFunctionModel.Tf_cont">
-<span class="sig-name descname"><span class="pre">Tf_cont</span></span><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel.Tf_cont" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">Tf_cont</span></span><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel.Tf_cont" title="Link to this definition"></a></dt>
 <dd><p>Continuous-time transfer function built from config.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -253,7 +252,7 @@ remains indifferent to the specific plant implementation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.BallBeam.TransferFunctions.TransferFunctionModel.Tf_dis">
-<span class="sig-name descname"><span class="pre">Tf_dis</span></span><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel.Tf_dis" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">Tf_dis</span></span><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel.Tf_dis" title="Link to this definition"></a></dt>
 <dd><p>ZOH-discretised transfer function at period <code class="docutils literal notranslate"><span class="pre">config_file.dt</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -264,7 +263,7 @@ remains indifferent to the specific plant implementation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.BallBeam.TransferFunctions.TransferFunctionModel.num_dis">
-<span class="sig-name descname"><span class="pre">num_dis</span></span><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel.num_dis" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">num_dis</span></span><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel.num_dis" title="Link to this definition"></a></dt>
 <dd><p>Numerator coefficients of the discrete TF, shape (nb,).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -275,7 +274,7 @@ remains indifferent to the specific plant implementation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Models.BallBeam.TransferFunctions.TransferFunctionModel.den_dis">
-<span class="sig-name descname"><span class="pre">den_dis</span></span><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel.den_dis" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">den_dis</span></span><a class="headerlink" href="#Models.BallBeam.TransferFunctions.TransferFunctionModel.den_dis" title="Link to this definition"></a></dt>
 <dd><p>Denominator coefficients of the discrete TF, shape (na+1,).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -294,11 +293,11 @@ remains indifferent to the specific plant implementation.</p>
 
 </section>
 <section id="module-Models.BallBeam.StateSpace">
-<span id="ballbeam-espace-d-etat-lineaire"></span><h2>BallBeam — espace d’état linéaire<a class="headerlink" href="#module-Models.BallBeam.StateSpace" title="Lien vers cette rubrique"></a></h2>
+<span id="ballbeam-linear-state-space"></span><h2>BallBeam — linear state space<a class="headerlink" href="#module-Models.BallBeam.StateSpace" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="Models.BallBeam.StateSpace.LinearStateSpaceModel">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.BallBeam.StateSpace.</span></span><span class="sig-name descname"><span class="pre">LinearStateSpaceModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Models/BallBeam/StateSpace.html#LinearStateSpaceModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.BallBeam.StateSpace.LinearStateSpaceModel" title="Lien vers cette définition"></a></dt>
-<dd><p>Bases : <a class="reference internal" href="#Models.base.BaseLinearStateSpaceModel" title="Models.base.BaseLinearStateSpaceModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLinearStateSpaceModel</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.BallBeam.StateSpace.</span></span><span class="sig-name descname"><span class="pre">LinearStateSpaceModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Models/BallBeam/StateSpace.html#LinearStateSpaceModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.BallBeam.StateSpace.LinearStateSpaceModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Models.base.BaseLinearStateSpaceModel" title="Models.base.BaseLinearStateSpaceModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLinearStateSpaceModel</span></code></a></p>
 <p>Linearised continuous and ZOH-discrete state-space model for a generic plant.</p>
 <p>Populates both the continuous attributes (A, B, C, D) defined by
 <code class="docutils literal notranslate"><span class="pre">BaseLinearStateSpaceModel</span></code> and the discrete attributes (Ad, Bd, Cd, Dd)
@@ -312,7 +311,7 @@ obtained by ZOH sampling at <code class="docutils literal notranslate"><span cla
 
 </section>
 <section id="module-Models.BallBeam.NonlinearDynamics">
-<span id="ballbeam-dynamique-non-lineaire"></span><h2>BallBeam — dynamique non linéaire<a class="headerlink" href="#module-Models.BallBeam.NonlinearDynamics" title="Lien vers cette rubrique"></a></h2>
+<span id="ballbeam-nonlinear-dynamics"></span><h2>BallBeam — nonlinear dynamics<a class="headerlink" href="#module-Models.BallBeam.NonlinearDynamics" title="Link to this heading"></a></h2>
 <p>Nonlinear dynamics of the ball-and-beam system.</p>
 <p>The state is X = [[r], [ṙ]] where r is the ball position [m] and ṙ its velocity [m/s].
 The control input u is the servo beam angle [rad]. The nonlinear ODE is:</p>
@@ -322,8 +321,8 @@ r̈ = −m·g·sin(α) / (J/R² + m),   α = (d/L)·u</p>
 </div></blockquote>
 <dl class="py class">
 <dt class="sig sig-object py" id="Models.BallBeam.NonlinearDynamics.NonlinearBallBeamModel">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.BallBeam.NonlinearDynamics.</span></span><span class="sig-name descname"><span class="pre">NonlinearBallBeamModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Models/BallBeam/NonlinearDynamics.html#NonlinearBallBeamModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.BallBeam.NonlinearDynamics.NonlinearBallBeamModel" title="Lien vers cette définition"></a></dt>
-<dd><p>Bases : <a class="reference internal" href="#Models.base.BaseNonlinearModel" title="Models.base.BaseNonlinearModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseNonlinearModel</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Models.BallBeam.NonlinearDynamics.</span></span><span class="sig-name descname"><span class="pre">NonlinearBallBeamModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Models/BallBeam/NonlinearDynamics.html#NonlinearBallBeamModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.BallBeam.NonlinearDynamics.NonlinearBallBeamModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Models.base.BaseNonlinearModel" title="Models.base.BaseNonlinearModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseNonlinearModel</span></code></a></p>
 <p>Nonlinear model of the ball-and-beam plant.</p>
 <p>Implements the exact (non-linearised) equations of motion using sin(α) instead
 of the small-angle approximation sin(α) ≈ α used by the linear models.
@@ -331,21 +330,21 @@ For small inputs the nonlinear and linear responses are nearly identical;
 differences become visible when <code class="docutils literal notranslate"><span class="pre">abs(u)</span> <span class="pre">&gt;</span> <span class="pre">~0.1</span> <span class="pre">rad</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Models.BallBeam.NonlinearDynamics.NonlinearBallBeamModel.f">
-<span class="sig-name descname"><span class="pre">f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/Models/BallBeam/NonlinearDynamics.html#NonlinearBallBeamModel.f"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.BallBeam.NonlinearDynamics.NonlinearBallBeamModel.f" title="Lien vers cette définition"></a></dt>
+<span class="sig-name descname"><span class="pre">f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/Models/BallBeam/NonlinearDynamics.html#NonlinearBallBeamModel.f"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.BallBeam.NonlinearDynamics.NonlinearBallBeamModel.f" title="Link to this definition"></a></dt>
 <dd><p>Evaluates the nonlinear state derivative Ẋ = f(X, u).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>np.ndarray</em>) – State vector [[r], [ṙ]], shape (2, 1).
 r  — ball position along the beam [m].
 ṙ  — ball velocity [m/s].</p></li>
-<li><p><strong>u</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a>) – Servo beam angle [rad].</p></li>
+<li><p><strong>u</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Servo beam angle [rad].</p></li>
 </ul>
 </dd>
-<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>State derivative [[ṙ], [r̈]], shape (2, 1).</p>
 </dd>
-<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -359,20 +358,20 @@ r  — ball position along the beam [m].
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
-        <a href="modules.html" class="btn btn-neutral float-left" title="Référence API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
-        <a href="control.html" class="btn btn-neutral float-right" title="Control" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="control.html" class="btn btn-neutral float-right" title="Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Droits d'auteur .</p>
+    <p>&#169; Copyright .</p>
   </div>
 
-  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
-    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

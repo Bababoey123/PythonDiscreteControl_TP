@@ -1,27 +1,26 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="fr" data-content_root="./">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PythonDiscreteControl — Documentation &mdash; Documentation PythonDiscreteControl_TP 1.0</title>
+  <title>PythonDiscreteControl — Documentation &mdash; PythonDiscreteControl_TP 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
-      <script src="_static/translations.js?v=e6b791cb"></script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="Vue d’ensemble" href="overview.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview" href="overview.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,16 +36,16 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Vue d’ensemble</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">Référence API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">API Reference</a></li>
 </ul>
 
         </div>
@@ -65,7 +64,7 @@
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">PythonDiscreteControl — Documentation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -74,23 +73,23 @@
            <div itemprop="articleBody">
              
   <section id="pythondiscretecontrol-documentation">
-<h1>PythonDiscreteControl — Documentation<a class="headerlink" href="#pythondiscretecontrol-documentation" title="Lien vers cette rubrique"></a></h1>
-<p>Projet Python dédié à l’analyse, la conception et la simulation de systèmes de
-commande numériques. Le système étudié est la <strong>balle sur poutre</strong> modélisée comme
-un double intégrateur <span class="math notranslate nohighlight">\(H/s^2\)</span>. Deux stratégies de commande sont comparées :
-un <strong>correcteur PID discret</strong> et un <strong>régulateur RST polynomial</strong>.</p>
+<h1>PythonDiscreteControl — Documentation<a class="headerlink" href="#pythondiscretecontrol-documentation" title="Link to this heading"></a></h1>
+<p>A Python project for the analysis, design, and simulation of discrete-time control
+systems. The plant studied is the <strong>ball-and-beam</strong> modelled as a double integrator
+<span class="math notranslate nohighlight">\(H/s^2\)</span>. Two control strategies are compared: a <strong>discrete PID controller</strong>
+and a <strong>polynomial RST regulator</strong>.</p>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Vue d’ensemble</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#architecture">Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="overview.html#modele-du-systeme">Modele du systeme</a></li>
-<li class="toctree-l2"><a class="reference internal" href="overview.html#interface-commune-des-correcteurs">Interface commune des correcteurs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="overview.html#constantes-cablees-dans-les-runners">Constantes cablees dans les runners</a></li>
-<li class="toctree-l2"><a class="reference internal" href="overview.html#synthese-rst">Synthese RST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#plant-model">Plant model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#common-controller-interface">Common controller interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#hardcoded-constants-in-the-runners">Hardcoded constants in the runners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#rst-synthesis">RST synthesis</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">Référence API</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/models.html">Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/control.html">Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/simulation.html">Simulation</a></li>
@@ -101,10 +100,10 @@ un <strong>correcteur PID discret</strong> et un <strong>régulateur RST polynom
 </ul>
 </div>
 <section id="indices">
-<h2>Indices<a class="headerlink" href="#indices" title="Lien vers cette rubrique"></a></h2>
+<h2>Indices<a class="headerlink" href="#indices" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Index du module</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -112,19 +111,19 @@ un <strong>correcteur PID discret</strong> et un <strong>régulateur RST polynom
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
-        <a href="overview.html" class="btn btn-neutral float-right" title="Vue d’ensemble" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Droits d'auteur .</p>
+    <p>&#169; Copyright .</p>
   </div>
 
-  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
-    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

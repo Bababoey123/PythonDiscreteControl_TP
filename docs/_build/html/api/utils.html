@@ -1,25 +1,24 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="fr" data-content_root="../">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Utils &mdash; Documentation PythonDiscreteControl_TP 1.0</title>
+  <title>Utils &mdash; PythonDiscreteControl_TP 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-      <script src="../_static/translations.js?v=e6b791cb"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Metrics &amp; Plotting" href="metrics_plotting.html" />
     <link rel="prev" title="Simulation" href="simulation.html" /> 
 </head>
@@ -37,16 +36,16 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../overview.html">Vue d’ensemble</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Référence API</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="control.html">Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="simulation.html">Simulation</a></li>
@@ -79,10 +78,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">Référence API</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API Reference</a></li>
       <li class="breadcrumb-item active">Utils</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/api/utils.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+            <a href="../_sources/api/utils.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -91,22 +90,22 @@
            <div itemprop="articleBody">
              
   <section id="module-Utils.computeRST">
-<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-Utils.computeRST" title="Lien vers cette rubrique"></a></h1>
+<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-Utils.computeRST" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="Utils.computeRST.trim">
-<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">trim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#trim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.trim" title="Lien vers cette définition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">trim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#trim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.trim" title="Link to this definition"></a></dt>
 <dd><p>Removes leading zeros from a polynomial coefficient array.</p>
 <p>Leading zeros represent unnecessary high-order terms (e.g. [0, 0, 1] is just [1]).
 If the entire array is zero the function returns [0.0] rather than an empty array,
 so that downstream polynomial operations always receive a valid input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>p</strong> (<em>array-like</em>) – Polynomial coefficients in descending order of power.</p>
 </dd>
-<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Trimmed coefficient array with no leading zeros (minimum length 1).</p>
 </dd>
-<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -114,23 +113,23 @@ so that downstream polynomial operations always receive a valid input.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="Utils.computeRST.conv_matrix">
-<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">conv_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#conv_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.conv_matrix" title="Lien vers cette définition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">conv_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#conv_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.conv_matrix" title="Link to this definition"></a></dt>
 <dd><p>Builds the convolution (Toeplitz) matrix for polynomial multiplication.</p>
 <p>Returns a matrix M such that  M &#64; x == np.convolve(a, x)  for any length-n
 vector x.  This lets the Diophantine equation A·S + B·R = A_m be written as
 a linear system M·θ = A_m and solved with least squares.</p>
 <p>The returned matrix has shape (len(a) + n − 1, n).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>array-like</em>) – Polynomial coefficient array (the fixed polynomial).</p></li>
-<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(dans Python v3.14)"><em>int</em></a>) – Length of the unknown polynomial x (number of columns).</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Length of the unknown polynomial x (number of columns).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Toeplitz convolution matrix of shape (len(a) + n − 1, n).</p>
 </dd>
-<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
@@ -138,7 +137,7 @@ a linear system M·θ = A_m and solved with least squares.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="Utils.computeRST.Compute_Denominator_Matching_RST">
-<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">Compute_Denominator_Matching_RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A_cl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(dans Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_discrete_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#Compute_Denominator_Matching_RST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.Compute_Denominator_Matching_RST" title="Lien vers cette définition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">Compute_Denominator_Matching_RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A_cl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_discrete_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#Compute_Denominator_Matching_RST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.Compute_Denominator_Matching_RST" title="Link to this definition"></a></dt>
 <dd><p>RST synthesis by denominator (characteristic polynomial) matching.</p>
 <p>Computes S, R, T by solving the Diophantine equation and setting T = t0 · A0.
 The A0 factor in T cancels with the A0 factor in the closed-loop denominator:</p>
@@ -147,7 +146,7 @@ The A0 factor in T cancels with the A0 factor in the closed-loop denominator:</p
 </div></blockquote>
 <p>so the reference-to-output dynamics are governed by A_m alone.</p>
 <section id="algorithm">
-<h2>Algorithm<a class="headerlink" href="#algorithm" title="Lien vers cette rubrique"></a></h2>
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Build the target polynomial <code class="docutils literal notranslate"><span class="pre">A_cl_total</span> <span class="pre">=</span> <span class="pre">A_m</span> <span class="pre">*</span> <span class="pre">A0</span></code>.</p></li>
 <li><p><strong>Dead-beat fill</strong> (if needed): if <code class="docutils literal notranslate"><span class="pre">A_cl_total</span></code> is shorter than the
@@ -165,7 +164,7 @@ the reduced equation against <code class="docutils literal notranslate"><span cl
 </ol>
 </section>
 <section id="degree-constraint">
-<h2>Degree constraint<a class="headerlink" href="#degree-constraint" title="Lien vers cette rubrique"></a></h2>
+<h2>Degree constraint<a class="headerlink" href="#degree-constraint" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">deg(A_m)</span></code> alone must not exceed the system capacity
 <code class="docutils literal notranslate"><span class="pre">deg(A)</span> <span class="pre">+</span> <span class="pre">deg(B)</span></code> (<code class="docutils literal notranslate"><span class="pre">deg(A_eff)</span> <span class="pre">+</span> <span class="pre">deg(B)</span> <span class="pre">-</span> <span class="pre">1</span></code> with Integrator).
 <code class="docutils literal notranslate"><span class="pre">deg(A0)</span></code> is unrestricted: when <code class="docutils literal notranslate"><span class="pre">A_m</span> <span class="pre">·</span> <span class="pre">A0</span></code> overflows, the two-step
@@ -222,11 +221,11 @@ H_cl (ct.TransferFunction): Closed-loop transfer function B·T / (A·S + B·R).<
 
 <dl class="py function">
 <dt class="sig sig-object py" id="Utils.computeRST.Compute_Desired_RST">
-<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">Compute_Desired_RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Desired_TF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_discrete_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#Compute_Desired_RST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.Compute_Desired_RST" title="Lien vers cette définition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">Compute_Desired_RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Desired_TF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_discrete_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#Compute_Desired_RST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.Compute_Desired_RST" title="Link to this definition"></a></dt>
 <dd><p>RST synthesis from a fully specified desired closed-loop transfer function.</p>
 <p>Computes S, R, T using the Landau observer polynomial formulation.  The algorithm:</p>
 <ol class="arabic">
-<li><p>Solve the <em>reduced</em> Diophantine for S”, R”
+<li><p>Solve the <em>reduced</em> Diophantine for S’, R’
 (where <code class="docutils literal notranslate"><span class="pre">A_m</span> <span class="pre">=</span> <span class="pre">Desired_TF.den</span></code> and <code class="docutils literal notranslate"><span class="pre">A_eff</span> <span class="pre">=</span> <span class="pre">A*(z-1)</span></code> when <code class="docutils literal notranslate"><span class="pre">Integrator=True</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>A_eff(z) · S&#39;(z) + B(z) · R&#39;(z) = A_m(z)
 </pre></div>
@@ -244,26 +243,26 @@ H_cl = B·T / (A·S + B·R) = B_cl / A_m = Desired_TF
 <code class="docutils literal notranslate"><span class="pre">deg(A_m)</span> <span class="pre">&lt;=</span> <span class="pre">deg(A)</span> <span class="pre">+</span> <span class="pre">deg(B)</span></code>.  A0 may have any degree; it does not consume this
 budget.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Desired_TF</strong> (<em>ct.TransferFunction</em>) – Desired closed-loop TF B_cl(z) / A_m(z)
 <em>without</em> the observer polynomial.  The denominator specifies dominant poles;
 A0 is appended separately.  The numerator B_cl must be exactly divisible by B.</p></li>
 <li><p><strong>plant_discrete_tf</strong> (<em>ct.TransferFunction</em>) – Discrete plant transfer function B(z)/A(z).</p></li>
-<li><p><strong>Integrator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(dans Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, forces S to contain (z-1).  Defaults to True.</p></li>
+<li><p><strong>Integrator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, forces S to contain (z-1).  Defaults to True.</p></li>
 <li><p><strong>A0</strong> (<em>array-like</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Observer polynomial; roots are additional
 closed-loop poles that cancel from H_cl.  Pass None for no observer poles.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>S_tf, R_tf, T_tf (ct.TransferFunction): Polynomial TFs with denominator 1.
 H_cl (ct.TransferFunction): Verified closed-loop TF ≈ Desired_TF.</p>
 </dd>
-<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(dans Python v3.14)">tuple</a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
-<dt class="field-even">Lève<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(dans Python v3.14)"><strong>ValueError</strong></a> – If degree constraint violated, A_m * A0 has unstable poles, or
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If degree constraint violated, A_m * A0 has unstable poles, or
     B_cl is not exactly divisible by B.</p>
 </dd>
 </dl>
@@ -271,12 +270,12 @@ H_cl (ct.TransferFunction): Verified closed-loop TF ≈ Desired_TF.</p>
 
 <dl class="py function" id="module-Utils.utils">
 <dt class="sig sig-object py" id="Utils.utils.as_csv">
-<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">as_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(dans Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#as_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.as_csv" title="Lien vers cette définition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">as_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#as_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.as_csv" title="Link to this definition"></a></dt>
 <dd><p>Exports a SimLog to a CSV file with columns: time, output, input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>csv_title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(dans Python v3.14)"><em>str</em></a>) – Output filename without the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> extension.</p></li>
+<li><p><strong>csv_title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Output filename without the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> extension.</p></li>
 <li><p><strong>logs</strong> (<a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><em>SimLog</em></a>) – Populated SimLog instance to export.</p></li>
 </ul>
 </dd>
@@ -285,55 +284,55 @@ H_cl (ct.TransferFunction): Verified closed-loop TF ≈ Desired_TF.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="Utils.utils.Place_real_radius">
-<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">Place_real_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pole_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steady_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#Place_real_radius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.Place_real_radius" title="Lien vers cette définition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">Place_real_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pole_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steady_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#Place_real_radius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.Place_real_radius" title="Link to this definition"></a></dt>
 <dd><p>Builds a desired closed-loop transfer function with all real poles at a given radius.</p>
 <p>Constructs a TF compatible with <code class="docutils literal notranslate"><span class="pre">Compute_Desired_RST</span></code>. The denominator degree is
 deg(A) + deg(B) and all poles are placed at <code class="docutils literal notranslate"><span class="pre">pole_radius</span></code>. The numerator is scaled
 to achieve the requested DC gain.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>plant_tf</strong> (<em>ct.TransferFunction</em>) – Discrete plant transfer function.</p></li>
-<li><p><strong>pole_radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Desired pole radius, strictly in (0, 1).
+<li><p><strong>pole_radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Desired pole radius, strictly in (0, 1).
 Poles closer to 1 yield a slower response. Defaults to 0.85.</p></li>
-<li><p><strong>steady_gain</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Desired closed-loop DC gain. Defaults to 1.0.</p></li>
+<li><p><strong>steady_gain</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Desired closed-loop DC gain. Defaults to 1.0.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Desired closed-loop transfer function with the same
 sampling period as <code class="docutils literal notranslate"><span class="pre">plant_tf</span></code>.</p>
 </dd>
-<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ct.TransferFunction</p>
 </dd>
-<dt class="field-even">Lève<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(dans Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">pole_radius</span></code> is not strictly between 0 and 1.</p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">pole_radius</span></code> is not strictly between 0 and 1.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="Utils.utils.poles_to_denominator">
-<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">poles_to_denominator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_stability</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#poles_to_denominator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.poles_to_denominator" title="Lien vers cette définition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">poles_to_denominator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_stability</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#poles_to_denominator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.poles_to_denominator" title="Link to this definition"></a></dt>
 <dd><p>Builds a monic denominator polynomial from discrete-time poles.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>poles</strong> (<em>array-like</em>) – Desired pole locations in the z-plane.</p></li>
-<li><p><strong>check_stability</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(dans Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> when any
+<li><p><strong>check_stability</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> when any
 pole lies on or outside the unit circle (<code class="docutils literal notranslate"><span class="pre">abs(z)</span> <span class="pre">&gt;=</span> <span class="pre">1</span></code>).  Defaults to True.</p></li>
-<li><p><strong>tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Threshold below which residual imaginary parts of the
+<li><p><strong>tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Threshold below which residual imaginary parts of the
 computed coefficients are discarded.  Defaults to 1e-2.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Monic denominator coefficients in descending powers of z.</p>
 </dd>
-<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
-<dt class="field-even">Lève<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(dans Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">check_stability</span></code> is True and any pole is unstable.</p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">check_stability</span></code> is True and any pole is unstable.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -343,20 +342,20 @@ computed coefficients are discarded.  Defaults to 1e-2.</p></li>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
-        <a href="simulation.html" class="btn btn-neutral float-left" title="Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
-        <a href="metrics_plotting.html" class="btn btn-neutral float-right" title="Metrics &amp; Plotting" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simulation.html" class="btn btn-neutral float-left" title="Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="metrics_plotting.html" class="btn btn-neutral float-right" title="Metrics &amp; Plotting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Droits d'auteur .</p>
+    <p>&#169; Copyright .</p>
   </div>
 
-  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
-    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

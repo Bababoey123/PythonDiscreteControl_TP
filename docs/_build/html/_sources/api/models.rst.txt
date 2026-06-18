@@ -9,20 +9,20 @@ BallBeam — configuration
 
 .. automodule:: Models.BallBeam.ballbeam_config
 
-BallBeam — fonctions de transfert
------------------------------------
+BallBeam — transfer functions
+------------------------------
 
 .. automodule:: Models.BallBeam.TransferFunctions
    :members:
 
-BallBeam — espace d'état linéaire
------------------------------------
+BallBeam — linear state space
+-------------------------------
 
 .. automodule:: Models.BallBeam.StateSpace
    :members:
 
-BallBeam — dynamique non linéaire
------------------------------------
+BallBeam — nonlinear dynamics
+------------------------------
 
 .. automodule:: Models.BallBeam.NonlinearDynamics
    :members:
