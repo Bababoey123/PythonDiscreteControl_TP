@@ -1,3 +1,10 @@
+"""Discrete PID controller (backward Euler) with optional derivative filter.
+
+The PID is expressed as a discrete transfer function C(z) = R(z)/S(z) and also
+exposes R, S, T polynomials so it can be used wherever an ``RSTController`` is
+expected (unity-feedback: T = R, S = denominator of C).
+"""
+
 import numpy as np
 import control as ct
 
@@ -101,9 +108,11 @@ class DiscretePID:
     def As_RST(self):
         """Converts the PID transfer function into equivalent R, S, T polynomials.
 
-        For a unity-feedback PID the RST representation is:
+        For a unity-feedback PID the RST representation is::
+
             R(z) = T(z) = numerator of C(z)
             S(z) = denominator of C(z)
+
         This lets a PID be used anywhere an ``RSTController`` is expected.
         """
         num = self.transferFunction.num_list[0][0]

@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metrics &amp; Plotting &mdash; Documentation PythonDiscreteControl_TP 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="Utils" href="utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PythonDiscreteControl_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Vue d’ensemble</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Référence API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Metrics &amp; Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Metrics_Plotting.SimLog.SimLog"><code class="docutils literal notranslate"><span class="pre">SimLog</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Metrics_Plotting.SimLog.SimLog.log"><code class="docutils literal notranslate"><span class="pre">SimLog.log()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Metrics_Plotting.Metrics.Metrics"><code class="docutils literal notranslate"><span class="pre">Metrics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Metrics_Plotting.Metrics.Metrics.response_data"><code class="docutils literal notranslate"><span class="pre">Metrics.response_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Metrics_Plotting.Metrics.Metrics.Stability"><code class="docutils literal notranslate"><span class="pre">Metrics.Stability()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Metrics_Plotting.Plotting.Plotting"><code class="docutils literal notranslate"><span class="pre">Plotting</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Metrics_Plotting.Plotting.Plotting.plotAll"><code class="docutils literal notranslate"><span class="pre">Plotting.plotAll()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonDiscreteControl_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Référence API</a></li>
+      <li class="breadcrumb-item active">Metrics &amp; Plotting</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/metrics_plotting.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Metrics_Plotting.SimLog">
+<span id="metrics-plotting"></span><h1>Metrics &amp; Plotting<a class="headerlink" href="#module-Metrics_Plotting.SimLog" title="Lien vers cette rubrique"></a></h1>
+<p>Lightweight data logger for simulation trajectories.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SimLog</span></code> accumulates (t, y, u) samples appended by runner functions and
+simulator loops. After a simulation run the three lists can be passed directly
+to <code class="docutils literal notranslate"><span class="pre">Metrics</span></code> or <code class="docutils literal notranslate"><span class="pre">Plotting</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Metrics_Plotting.SimLog.SimLog">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Metrics_Plotting.SimLog.</span></span><span class="sig-name descname"><span class="pre">SimLog</span></span><a class="reference internal" href="../_modules/Metrics_Plotting/SimLog.html#SimLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Metrics_Plotting.SimLog.SimLog" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Accumulates time, output, and input samples from a simulation run.</p>
+<p>Each call to <code class="docutils literal notranslate"><span class="pre">log</span></code> appends one sample.  After the simulation, <code class="docutils literal notranslate"><span class="pre">t_hist</span></code>,
+<code class="docutils literal notranslate"><span class="pre">y_hist</span></code>, and <code class="docutils literal notranslate"><span class="pre">u_hist</span></code> hold the complete trajectories as plain Python lists,
+ready for plotting or export.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Metrics_Plotting.SimLog.SimLog.log">
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Metrics_Plotting/SimLog.html#SimLog.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Metrics_Plotting.SimLog.SimLog.log" title="Lien vers cette définition"></a></dt>
+<dd><p>Appends one time step to the trajectory.</p>
+<p>Both <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">u</span></code> are expected to be single-element arrays; <code class="docutils literal notranslate"><span class="pre">.item()</span></code>
+is called to store plain Python floats rather than NumPy scalars, which
+prevents unbounded array accumulation over long runs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a>) – Current simulation time [s].</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – Plant output at time t, shape (1,).</p></li>
+<li><p><strong>u</strong> (<em>np.ndarray</em>) – Control input applied at time t, shape (1,).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-Metrics_Plotting.Metrics">Performance metrics for closed-loop simulation results.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Metrics</span></code> computes time-domain step-response metrics (rise time, settling time,
+overshoot) and frequency-domain stability margins (gain margin, phase margin) from
+either a <code class="docutils literal notranslate"><span class="pre">SimLog</span></code> or a <code class="docutils literal notranslate"><span class="pre">ct.TransferFunction</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Metrics_Plotting.Metrics.Metrics">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Metrics_Plotting.Metrics.</span></span><span class="sig-name descname"><span class="pre">Metrics</span></span><a class="reference internal" href="../_modules/Metrics_Plotting/Metrics.html#Metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Metrics_Plotting.Metrics.Metrics" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Computes time-domain and frequency-domain performance metrics from simulation logs.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Metrics_Plotting.Metrics.Metrics.response_data">
+<span class="sig-name descname"><span class="pre">response_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Metrics_Plotting/Metrics.html#Metrics.response_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Metrics_Plotting.Metrics.Metrics.response_data" title="Lien vers cette définition"></a></dt>
+<dd><p>Prints rise time, settling time, overshoot, and steady-state error from a closed-loop log.</p>
+<p>Analysis is restricted to the pre-disturbance phase (t ≤ 3 s) because the disturbance
+applied at t = 3 s would otherwise corrupt the transient metrics.</p>
+<section id="hardcoded-thresholds">
+<h2>Hardcoded thresholds<a class="headerlink" href="#hardcoded-thresholds" title="Lien vers cette rubrique"></a></h2>
+<dl class="simple">
+<dt>t ≤ 3.0 s</dt><dd><p>Pre-disturbance analysis window.  The runners apply a step disturbance at t = 3 s,
+so any sample after this instant reflects disturbance rejection rather than reference
+tracking.</p>
+</dd>
+<dt>10 % / 90 % of reference</dt><dd><p>Standard IEEE rise-time definition: the time for the output to travel from 10 % to
+90 % of the reference value.</p>
+</dd>
+<dt>±10 % band</dt><dd><p>Settling-time tolerance band.  The settling time is the last instant at which the
+output is still outside this band.  A tighter ±2 % band is conventional; the 10 %
+band is used here to be conservative with the ball-and-beam’s relatively slow dynamics.</p>
+</dd>
+<dt>2.5 s to 3.0 s window</dt><dd><p>Last 0.5 s before the disturbance onset, used to estimate the steady-state output
+once the transient has died out.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param Logger<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Populated SimLog from a completed closed-loop simulation run.</p>
+</dd>
+<dt class="field-even">type Logger<span class="colon">:</span></dt>
+<dd class="field-even"><p>SimLog</p>
+</dd>
+<dt class="field-odd">param reference<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Controller setpoint (target ball position).</p>
+</dd>
+<dt class="field-even">type reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Metrics_Plotting.Metrics.Metrics.Stability">
+<span class="sig-name descname"><span class="pre">Stability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TransferFunction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Metrics_Plotting/Metrics.html#Metrics.Stability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Metrics_Plotting.Metrics.Metrics.Stability" title="Lien vers cette définition"></a></dt>
+<dd><p>Prints the gain margin and phase margin of an open-loop transfer function.</p>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">control.stability_margins</span></code> to compute both margins in one call, then
+converts the gain margin from a linear ratio to decibels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TF</strong> (<em>ct.TransferFunction</em>) – Open-loop discrete or continuous transfer function
+whose stability margins are to be evaluated.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-Metrics_Plotting.Plotting">Quick-look plotting utilities for simulation results.</p>
+<p>For publication-quality figures, use the inline plotting code in the notebooks
+directly; this module is intended for rapid diagnostic checks during development.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Metrics_Plotting.Plotting.Plotting">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Metrics_Plotting.Plotting.</span></span><span class="sig-name descname"><span class="pre">Plotting</span></span><a class="reference internal" href="../_modules/Metrics_Plotting/Plotting.html#Plotting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Metrics_Plotting.Plotting.Plotting" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Utility class for visualising simulation results stored in a SimLog.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Metrics_Plotting.Plotting.Plotting.plotAll">
+<span class="sig-name descname"><span class="pre">plotAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Log</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Metrics_Plotting/Plotting.html#Plotting.plotAll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Metrics_Plotting.Plotting.Plotting.plotAll" title="Lien vers cette définition"></a></dt>
+<dd><p>Plots the output trajectory and control input from a simulation log.</p>
+<p>Opens two separate Matplotlib figures: plant output y(t) and control input u(t),
+both as functions of time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Log</strong> (<a class="reference internal" href="#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><em>SimLog</em></a>) – Populated SimLog instance containing t_hist, y_hist, u_hist.</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(dans Python v3.14)"><em>str</em></a>) – Title string applied to both figures.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="utils.html" class="btn btn-neutral float-left" title="Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

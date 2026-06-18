@@ -1,5 +1,12 @@
+"""Quick-look plotting utilities for simulation results.
+
+For publication-quality figures, use the inline plotting code in the notebooks
+directly; this module is intended for rapid diagnostic checks during development.
+"""
+
 import numpy as np
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
+
 
 class Plotting:
     """Utility class for visualising simulation results stored in a SimLog."""
@@ -11,7 +18,8 @@ class Plotting:
     def plotAll(self, Log, title):
         """Plots the output trajectory and control input from a simulation log.
 
-        Produces two separate figures: plant output vs time and control input vs time.
+        Opens two separate Matplotlib figures: plant output y(t) and control input u(t),
+        both as functions of time.
 
         Args:
             Log (SimLog): Populated SimLog instance containing t_hist, y_hist, u_hist.

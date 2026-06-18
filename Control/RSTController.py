@@ -1,3 +1,11 @@
+"""Polynomial RST controller (two-degree-of-freedom).
+
+The RST polynomials are typically produced by one of the synthesis functions in
+``Utils/computeRST.py`` and then passed to ``RSTController.__init__``. A ``DiscretePID``
+instance is also accepted anywhere an ``RSTController`` is expected because both expose
+the same ``reset`` / ``setReference`` / ``step`` interface.
+"""
+
 import numpy as np
 import control as ct
 

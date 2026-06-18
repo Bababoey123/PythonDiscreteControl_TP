@@ -1,0 +1,374 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utils &mdash; Documentation PythonDiscreteControl_TP 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Metrics &amp; Plotting" href="metrics_plotting.html" />
+    <link rel="prev" title="Simulation" href="simulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PythonDiscreteControl_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Vue d’ensemble</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Référence API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simulation.html">Simulation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Utils.computeRST.trim"><code class="docutils literal notranslate"><span class="pre">trim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Utils.computeRST.conv_matrix"><code class="docutils literal notranslate"><span class="pre">conv_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Utils.computeRST.Compute_Denominator_Matching_RST"><code class="docutils literal notranslate"><span class="pre">Compute_Denominator_Matching_RST()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Utils.computeRST.Compute_Desired_RST"><code class="docutils literal notranslate"><span class="pre">Compute_Desired_RST()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Utils.utils.as_csv"><code class="docutils literal notranslate"><span class="pre">as_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Utils.utils.Place_real_radius"><code class="docutils literal notranslate"><span class="pre">Place_real_radius()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Utils.utils.poles_to_denominator"><code class="docutils literal notranslate"><span class="pre">poles_to_denominator()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="metrics_plotting.html">Metrics &amp; Plotting</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonDiscreteControl_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Référence API</a></li>
+      <li class="breadcrumb-item active">Utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/utils.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Utils.computeRST">
+<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-Utils.computeRST" title="Lien vers cette rubrique"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="Utils.computeRST.trim">
+<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">trim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#trim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.trim" title="Lien vers cette définition"></a></dt>
+<dd><p>Removes leading zeros from a polynomial coefficient array.</p>
+<p>Leading zeros represent unnecessary high-order terms (e.g. [0, 0, 1] is just [1]).
+If the entire array is zero the function returns [0.0] rather than an empty array,
+so that downstream polynomial operations always receive a valid input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>p</strong> (<em>array-like</em>) – Polynomial coefficients in descending order of power.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Trimmed coefficient array with no leading zeros (minimum length 1).</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Utils.computeRST.conv_matrix">
+<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">conv_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#conv_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.conv_matrix" title="Lien vers cette définition"></a></dt>
+<dd><p>Builds the convolution (Toeplitz) matrix for polynomial multiplication.</p>
+<p>Returns a matrix M such that  M &#64; x == np.convolve(a, x)  for any length-n
+vector x.  This lets the Diophantine equation A·S + B·R = A_m be written as
+a linear system M·θ = A_m and solved with least squares.</p>
+<p>The returned matrix has shape (len(a) + n − 1, n).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>array-like</em>) – Polynomial coefficient array (the fixed polynomial).</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(dans Python v3.14)"><em>int</em></a>) – Length of the unknown polynomial x (number of columns).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Toeplitz convolution matrix of shape (len(a) + n − 1, n).</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Utils.computeRST.Compute_Denominator_Matching_RST">
+<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">Compute_Denominator_Matching_RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A_cl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(dans Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_discrete_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#Compute_Denominator_Matching_RST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.Compute_Denominator_Matching_RST" title="Lien vers cette définition"></a></dt>
+<dd><p>RST synthesis by denominator (characteristic polynomial) matching.</p>
+<p>Computes S, R, T by solving the Diophantine equation and setting T = t0 · A0.
+The A0 factor in T cancels with the A0 factor in the closed-loop denominator:</p>
+<blockquote>
+<div><p>H_ry = B·T / (A·S + B·R) = B·(t0·A0) / (A_m·A0) = t0·B / A_m</p>
+</div></blockquote>
+<p>so the reference-to-output dynamics are governed by A_m alone.</p>
+<section id="algorithm">
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="Lien vers cette rubrique"></a></h2>
+<ol class="arabic simple">
+<li><p>Build the target polynomial <code class="docutils literal notranslate"><span class="pre">A_cl_total</span> <span class="pre">=</span> <span class="pre">A_m</span> <span class="pre">*</span> <span class="pre">A0</span></code>.</p></li>
+<li><p><strong>Dead-beat fill</strong> (if needed): if <code class="docutils literal notranslate"><span class="pre">A_cl_total</span></code> is shorter than the
+Diophantine system capacity, trailing zeros are appended (= poles at z=0).
+This avoids a forced leading-zero in the right-hand side that would flip the
+sign of S and cause the closed-loop simulation to diverge.  A <code class="docutils literal notranslate"><span class="pre">UserWarning</span></code>
+is issued; pass an explicit <code class="docutils literal notranslate"><span class="pre">A0</span></code> to control pole placement.</p></li>
+<li><p><strong>Direct solve</strong> (when <code class="docutils literal notranslate"><span class="pre">A_cl_total</span></code> fits the system): solve
+<code class="docutils literal notranslate"><span class="pre">A_eff</span> <span class="pre">·</span> <span class="pre">S_tilde</span> <span class="pre">+</span> <span class="pre">B</span> <span class="pre">·</span> <span class="pre">R</span> <span class="pre">=</span> <span class="pre">A_cl_total</span></code> directly.  With no leading zeros
+the sign of S_tilde[0] is positive, as required by the 1/S filter.</p></li>
+<li><p><strong>Two-step Landau fallback</strong> (when <code class="docutils literal notranslate"><span class="pre">A_cl_total</span></code> exceeds the system): solve
+the reduced equation against <code class="docutils literal notranslate"><span class="pre">A_m</span></code>, then set <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">=</span> <span class="pre">A0</span> <span class="pre">·</span> <span class="pre">S'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">R</span> <span class="pre">=</span> <span class="pre">A0</span> <span class="pre">·</span> <span class="pre">R'</span></code>.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">t0</span> <span class="pre">·</span> <span class="pre">A0</span></code>, where <code class="docutils literal notranslate"><span class="pre">t0</span> <span class="pre">=</span> <span class="pre">A_m(1)</span> <span class="pre">/</span> <span class="pre">B(1)</span></code> enforces unity DC gain.</p></li>
+</ol>
+</section>
+<section id="degree-constraint">
+<h2>Degree constraint<a class="headerlink" href="#degree-constraint" title="Lien vers cette rubrique"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">deg(A_m)</span></code> alone must not exceed the system capacity
+<code class="docutils literal notranslate"><span class="pre">deg(A)</span> <span class="pre">+</span> <span class="pre">deg(B)</span></code> (<code class="docutils literal notranslate"><span class="pre">deg(A_eff)</span> <span class="pre">+</span> <span class="pre">deg(B)</span> <span class="pre">-</span> <span class="pre">1</span></code> with Integrator).
+<code class="docutils literal notranslate"><span class="pre">deg(A0)</span></code> is unrestricted: when <code class="docutils literal notranslate"><span class="pre">A_m</span> <span class="pre">·</span> <span class="pre">A0</span></code> overflows, the two-step
+Landau fallback handles it automatically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param A_cl<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Coefficients of the <em>dominant</em> closed-loop characteristic
+polynomial A_m(z) in descending powers of z.  Must NOT include the
+observer polynomial A0 — pass only the pole locations you want to dominate
+the transient response.</p>
+</dd>
+<dt class="field-even">type A_cl<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">param plant_discrete_tf<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Discrete plant transfer function B(z)/A(z).</p>
+</dd>
+<dt class="field-even">type plant_discrete_tf<span class="colon">:</span></dt>
+<dd class="field-even"><p>ct.TransferFunction</p>
+</dd>
+<dt class="field-odd">param Integrator<span class="colon">:</span></dt>
+<dd class="field-odd"><p>If True, forces S to contain (z-1) to guarantee
+zero steady-state error for step references and exact rejection of constant
+disturbances (S(1) = 0).  Defaults to True.</p>
+</dd>
+<dt class="field-even">type Integrator<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool, optional</p>
+</dd>
+<dt class="field-odd">param A0<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Observer polynomial.  Its roots are additional
+closed-loop poles placed faster than A_m; they cancel from the reference path
+via T = t0·A0.  Pass None to let the function choose poles automatically
+(a UserWarning is issued when dead-beat fill is applied).  Defaults to None.</p>
+</dd>
+<dt class="field-even">type A0<span class="colon">:</span></dt>
+<dd class="field-even"><p>array-like or None, optional</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>S_tf (ct.TransferFunction): S polynomial as a discrete TF with denominator 1.
+R_tf (ct.TransferFunction): R polynomial as a discrete TF with denominator 1.
+T_tf (ct.TransferFunction): T polynomial as a discrete TF with denominator 1.
+H_cl (ct.TransferFunction): Closed-loop transfer function B·T / (A·S + B·R).</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+<dt class="field-odd">raises ValueError<span class="colon">:</span></dt>
+<dd class="field-odd"><p>If A_cl degree exceeds the controller structure capacity, or if
+    A_m * A0 contains unstable poles.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Utils.computeRST.Compute_Desired_RST">
+<span class="sig-prename descclassname"><span class="pre">Utils.computeRST.</span></span><span class="sig-name descname"><span class="pre">Compute_Desired_RST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Desired_TF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plant_discrete_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/computeRST.html#Compute_Desired_RST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.computeRST.Compute_Desired_RST" title="Lien vers cette définition"></a></dt>
+<dd><p>RST synthesis from a fully specified desired closed-loop transfer function.</p>
+<p>Computes S, R, T using the Landau observer polynomial formulation.  The algorithm:</p>
+<ol class="arabic">
+<li><p>Solve the <em>reduced</em> Diophantine for S”, R”
+(where <code class="docutils literal notranslate"><span class="pre">A_m</span> <span class="pre">=</span> <span class="pre">Desired_TF.den</span></code> and <code class="docutils literal notranslate"><span class="pre">A_eff</span> <span class="pre">=</span> <span class="pre">A*(z-1)</span></code> when <code class="docutils literal notranslate"><span class="pre">Integrator=True</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>A_eff(z) · S&#39;(z) + B(z) · R&#39;(z) = A_m(z)
+</pre></div>
+</div>
+</li>
+<li><p>Apply the observer polynomial factor (<code class="docutils literal notranslate"><span class="pre">T'</span> <span class="pre">=</span> <span class="pre">B_cl</span> <span class="pre">/</span> <span class="pre">B</span></code>) so that A0 cancels from
+the closed-loop reference-to-output path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>S = A0 · S&#39;,   R = A0 · R&#39;,   T = A0 · T&#39;
+H_cl = B·T / (A·S + B·R) = B_cl / A_m = Desired_TF
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Degree constraint: <code class="docutils literal notranslate"><span class="pre">Desired_TF.den</span></code> (the dominant polynomial A_m) must satisfy
+<code class="docutils literal notranslate"><span class="pre">deg(A_m)</span> <span class="pre">&lt;=</span> <span class="pre">deg(A)</span> <span class="pre">+</span> <span class="pre">deg(B)</span></code>.  A0 may have any degree; it does not consume this
+budget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Desired_TF</strong> (<em>ct.TransferFunction</em>) – Desired closed-loop TF B_cl(z) / A_m(z)
+<em>without</em> the observer polynomial.  The denominator specifies dominant poles;
+A0 is appended separately.  The numerator B_cl must be exactly divisible by B.</p></li>
+<li><p><strong>plant_discrete_tf</strong> (<em>ct.TransferFunction</em>) – Discrete plant transfer function B(z)/A(z).</p></li>
+<li><p><strong>Integrator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(dans Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, forces S to contain (z-1).  Defaults to True.</p></li>
+<li><p><strong>A0</strong> (<em>array-like</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Observer polynomial; roots are additional
+closed-loop poles that cancel from H_cl.  Pass None for no observer poles.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>S_tf, R_tf, T_tf (ct.TransferFunction): Polynomial TFs with denominator 1.
+H_cl (ct.TransferFunction): Verified closed-loop TF ≈ Desired_TF.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(dans Python v3.14)">tuple</a></p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(dans Python v3.14)"><strong>ValueError</strong></a> – If degree constraint violated, A_m * A0 has unstable poles, or
+    B_cl is not exactly divisible by B.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-Utils.utils">
+<dt class="sig sig-object py" id="Utils.utils.as_csv">
+<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">as_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(dans Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#as_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.as_csv" title="Lien vers cette définition"></a></dt>
+<dd><p>Exports a SimLog to a CSV file with columns: time, output, input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csv_title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(dans Python v3.14)"><em>str</em></a>) – Output filename without the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> extension.</p></li>
+<li><p><strong>logs</strong> (<a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><em>SimLog</em></a>) – Populated SimLog instance to export.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Utils.utils.Place_real_radius">
+<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">Place_real_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant_tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pole_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steady_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#Place_real_radius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.Place_real_radius" title="Lien vers cette définition"></a></dt>
+<dd><p>Builds a desired closed-loop transfer function with all real poles at a given radius.</p>
+<p>Constructs a TF compatible with <code class="docutils literal notranslate"><span class="pre">Compute_Desired_RST</span></code>. The denominator degree is
+deg(A) + deg(B) and all poles are placed at <code class="docutils literal notranslate"><span class="pre">pole_radius</span></code>. The numerator is scaled
+to achieve the requested DC gain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plant_tf</strong> (<em>ct.TransferFunction</em>) – Discrete plant transfer function.</p></li>
+<li><p><strong>pole_radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Desired pole radius, strictly in (0, 1).
+Poles closer to 1 yield a slower response. Defaults to 0.85.</p></li>
+<li><p><strong>steady_gain</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Desired closed-loop DC gain. Defaults to 1.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Desired closed-loop transfer function with the same
+sampling period as <code class="docutils literal notranslate"><span class="pre">plant_tf</span></code>.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ct.TransferFunction</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(dans Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">pole_radius</span></code> is not strictly between 0 and 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Utils.utils.poles_to_denominator">
+<span class="sig-prename descclassname"><span class="pre">Utils.utils.</span></span><span class="sig-name descname"><span class="pre">poles_to_denominator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_stability</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Utils/utils.html#poles_to_denominator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Utils.utils.poles_to_denominator" title="Lien vers cette définition"></a></dt>
+<dd><p>Builds a monic denominator polynomial from discrete-time poles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>poles</strong> (<em>array-like</em>) – Desired pole locations in the z-plane.</p></li>
+<li><p><strong>check_stability</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(dans Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> when any
+pole lies on or outside the unit circle (<code class="docutils literal notranslate"><span class="pre">abs(z)</span> <span class="pre">&gt;=</span> <span class="pre">1</span></code>).  Defaults to True.</p></li>
+<li><p><strong>tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Threshold below which residual imaginary parts of the
+computed coefficients are discarded.  Defaults to 1e-2.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Monic denominator coefficients in descending powers of z.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(dans Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">check_stability</span></code> is True and any pole is unstable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="simulation.html" class="btn btn-neutral float-left" title="Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="metrics_plotting.html" class="btn btn-neutral float-right" title="Metrics &amp; Plotting" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

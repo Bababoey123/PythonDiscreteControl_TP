@@ -1,7 +1,7 @@
 """Abstract base classes for plant models.
 
-Any new plant must implement these methods so that the Simulation layer
-remains indeferent for the plant.
+Any new plant must implement these interfaces so that the Simulation layer
+remains indifferent to the specific plant implementation.
 """
 
 from abc import ABC, abstractmethod

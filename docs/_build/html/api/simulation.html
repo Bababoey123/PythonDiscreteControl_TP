@@ -1,0 +1,607 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulation &mdash; Documentation PythonDiscreteControl_TP 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Utils" href="utils.html" />
+    <link rel="prev" title="Control" href="control.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PythonDiscreteControl_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Vue d’ensemble</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Référence API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control.html">Control</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Simulation.simulation.TFSimulator"><code class="docutils literal notranslate"><span class="pre">TFSimulator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.simulation.TFSimulator.reset"><code class="docutils literal notranslate"><span class="pre">TFSimulator.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.simulation.TFSimulator.step"><code class="docutils literal notranslate"><span class="pre">TFSimulator.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Simulation.simulation.HybridSim"><code class="docutils literal notranslate"><span class="pre">HybridSim</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.simulation.HybridSim.rk4_step"><code class="docutils literal notranslate"><span class="pre">HybridSim.rk4_step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Simulation.simulation.NonLinearHybridSim"><code class="docutils literal notranslate"><span class="pre">NonLinearHybridSim</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.simulation.NonLinearHybridSim.rk4_step"><code class="docutils literal notranslate"><span class="pre">NonLinearHybridSim.rk4_step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Simulation.runners">Runners</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hardcoded-values-shared-by-all-runners">Hardcoded values shared by all runners</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.runners.run_discrete_control"><code class="docutils literal notranslate"><span class="pre">run_discrete_control()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.runners.run_discrete_impulse_response"><code class="docutils literal notranslate"><span class="pre">run_discrete_impulse_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.runners.run_discrete_step_response"><code class="docutils literal notranslate"><span class="pre">run_discrete_step_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.runners.run_continuous_control_loop"><code class="docutils literal notranslate"><span class="pre">run_continuous_control_loop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.runners.run_continuous_impulse_response"><code class="docutils literal notranslate"><span class="pre">run_continuous_impulse_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Simulation.runners.run_continuous_step_response"><code class="docutils literal notranslate"><span class="pre">run_continuous_step_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics_plotting.html">Metrics &amp; Plotting</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonDiscreteControl_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Référence API</a></li>
+      <li class="breadcrumb-item active">Simulation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/simulation.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Simulation.simulation">
+<span id="simulation"></span><h1>Simulation<a class="headerlink" href="#module-Simulation.simulation" title="Lien vers cette rubrique"></a></h1>
+<p>Low-level discrete and hybrid plant simulators.</p>
+<p>Three simulators are provided:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TFSimulator</span></code>        — discrete transfer function stepped via a difference equation.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">HybridSim</span></code>         — continuous linear plant (state-space) driven by a discrete controller,</dt><dd><p>integrated with RK4 at 1 ms.</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NonLinearHybridSim</span></code>— same structure but with a nonlinear ODE from <code class="docutils literal notranslate"><span class="pre">BaseNonlinearModel</span></code>.</p></li>
+</ul>
+<p>Runner functions that wire simulators to controllers live in <code class="docutils literal notranslate"><span class="pre">Simulation/runners.py</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Simulation.simulation.TFSimulator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Simulation.simulation.</span></span><span class="sig-name descname"><span class="pre">TFSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Simulation/simulation.html#TFSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.simulation.TFSimulator" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Simulates a discrete transfer function step-by-step using its difference equation.</p>
+<p>Given a transfer function B(z)/A(z), each call to <code class="docutils literal notranslate"><span class="pre">step</span></code> advances the recursion:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>a0·y[k] = b0·u[k] + b1·u[k-1] + … − a1·y[k-1] − a2·y[k-2] − …
+</pre></div>
+</div>
+<p>Used for both plant simulation (open-loop TF) and internally by <code class="docutils literal notranslate"><span class="pre">DiscretePID</span></code>
+and <code class="docutils literal notranslate"><span class="pre">RSTController</span></code> for their own difference-equation recursion.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Simulation.simulation.TFSimulator.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Simulation/simulation.html#TFSimulator.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.simulation.TFSimulator.reset" title="Lien vers cette définition"></a></dt>
+<dd><p>Resets the input and output history buffers to zero.</p>
+<p>Call this before starting a new simulation run to avoid carry-over from
+a previous run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X_0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a>) – Unused; kept for interface consistency with the runner functions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Simulation.simulation.TFSimulator.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Simulation/simulation.html#TFSimulator.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.simulation.TFSimulator.step" title="Lien vers cette définition"></a></dt>
+<dd><p>Advances the difference equation by one sample and returns the new output y[k].</p>
+<dl class="simple">
+<dt>Implements:</dt><dd><p>y[k] = (b0·u[k] + b1·u[k-1] + … − a1·y[k-1] − …) / a0</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><em>float</em></a>) – Current input sample u[k].</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Current output sample y[k].</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Simulation.simulation.HybridSim">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Simulation.simulation.</span></span><span class="sig-name descname"><span class="pre">HybridSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">StateSpaceModel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="models.html#Models.base.BaseLinearStateSpaceModel" title="Models.base.BaseLinearStateSpaceModel"><span class="pre">BaseLinearStateSpaceModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Simulation/simulation.html#HybridSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.simulation.HybridSim" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Hybrid simulator: continuous linear plant (state-space) driven by a discrete controller.</p>
+<p>The plant is integrated at a fine timestep <code class="docutils literal notranslate"><span class="pre">dt_plant</span></code> = 1 ms (1 kHz) using fourth-order
+Runge-Kutta (RK4), while the controller output is updated at the coarser <code class="docutils literal notranslate"><span class="pre">config_file.dt</span></code>
+(typically 20 ms / 50 Hz).  This ratio gives 20 RK4 substeps per control period, which is
+enough to make the integration error negligible compared with sampling effects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Simulation.simulation.HybridSim.rk4_step">
+<span class="sig-name descname"><span class="pre">rk4_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Simulation/simulation.html#HybridSim.rk4_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.simulation.HybridSim.rk4_step" title="Lien vers cette définition"></a></dt>
+<dd><p>Advances the continuous state one integration step using classical RK4.</p>
+<p>Integrates  Ẋ = A·X + B·u  over one <code class="docutils literal notranslate"><span class="pre">dt_plant</span></code> interval with the control
+input u_k held constant (zero-order hold within the substep).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) – Current state vector X[k], shape (n, 1).</p></li>
+<li><p><strong>u_k</strong> (<em>np.ndarray</em>) – Control input applied during this step, shape (m, 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated state vector X[k+1], shape (n, 1).</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Simulation.simulation.NonLinearHybridSim">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Simulation.simulation.</span></span><span class="sig-name descname"><span class="pre">NonLinearHybridSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="models.html#Models.base.BaseNonlinearModel" title="Models.base.BaseNonlinearModel"><span class="pre">BaseNonlinearModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Simulation/simulation.html#NonLinearHybridSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.simulation.NonLinearHybridSim" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(dans Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Hybrid simulator: generic nonlinear plant driven by a discrete controller.</p>
+<p>Identical structure to <code class="docutils literal notranslate"><span class="pre">HybridSim</span></code> but uses the nonlinear ODE <code class="docutils literal notranslate"><span class="pre">f(X,</span> <span class="pre">u)</span></code> from
+a <code class="docutils literal notranslate"><span class="pre">BaseNonlinearModel</span></code> subclass instead of linear state-space matrices.  The plant
+is integrated at <code class="docutils literal notranslate"><span class="pre">dt_plant</span></code> = 1 ms using RK4; the controller output is updated at
+the coarser <code class="docutils literal notranslate"><span class="pre">config_file.dt</span></code>.  The output matrix C is read from the model.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Simulation.simulation.NonLinearHybridSim.rk4_step">
+<span class="sig-name descname"><span class="pre">rk4_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_k</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(dans NumPy v2.4)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/Simulation/simulation.html#NonLinearHybridSim.rk4_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.simulation.NonLinearHybridSim.rk4_step" title="Lien vers cette définition"></a></dt>
+<dd><p>Advances the nonlinear plant state one integration step using classical RK4.</p>
+<p>Integrates  Ẋ = f(X, u)  over one <code class="docutils literal notranslate"><span class="pre">dt_plant</span></code> interval with the control
+input u_k held constant (zero-order hold within the substep).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) – Current state vector [[r], [ṙ]], shape (2, 1).</p></li>
+<li><p><strong>u_k</strong> (<em>np.ndarray</em>) – Control input (servo command), shape (1, 1) or scalar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated state vector [[r], [ṙ]], shape (2, 1).</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-Simulation.runners">
+<span id="runners"></span><h2>Runners<a class="headerlink" href="#module-Simulation.runners" title="Lien vers cette rubrique"></a></h2>
+<p>High-level simulation runner functions.</p>
+<p>Each runner wires together a plant simulator, an optional controller, and a SimLog, then
+returns the populated logger.  Knowing the signature and side-effects of each runner is
+the primary interface point for users of this library.</p>
+<section id="hardcoded-values-shared-by-all-runners">
+<h3>Hardcoded values shared by all runners<a class="headerlink" href="#hardcoded-values-shared-by-all-runners" title="Lien vers cette rubrique"></a></h3>
+<dl class="simple">
+<dt>Disturbance magnitude<span class="classifier">2.0 (same units as the control input)</span></dt><dd><p>A constant step disturbance of 2.0 is added to the plant input for all samples after
+t = 3 s.  The plant receives <code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">+</span> <span class="pre">d</span></code> while the logged control signal is the raw
+controller output.  Because RST enforces S(1) = 0 (integrator in S), the steady-state
+position error is exactly zero.  A PID without integral action (Ki = 0) settles with a
+permanent offset of approximately D * S(1) / R(1) ≈ D / Kp.</p>
+</dd>
+<dt>Disturbance onset<span class="classifier">t &gt; 3.0 s</span></dt><dd><p>The first 3 s are reserved for the reference-tracking transient.  The disturbance is
+injected after this window so that tracking and rejection performance can be assessed
+independently from a single simulation run.</p>
+</dd>
+<dt>Saturation limits<span class="classifier">±10 (same units as the control input)</span></dt><dd><p>The control signal is clipped to [−10, +10].  These limits approximate the physical
+saturation of the ball-and-beam servo actuator (roughly ±10° of beam tilt in the
+normalised model).  Saturation prevents integrator wind-up from driving the ball
+off the beam during large transients.</p>
+</dd>
+</dl>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="Simulation.runners.run_discrete_control">
+<span class="sig-prename descclassname"><span class="pre">Simulation.runners.</span></span><span class="sig-name descname"><span class="pre">run_discrete_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant_sim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Simulation.simulation.TFSimulator" title="Simulation.simulation.TFSimulator"><span class="pre">TFSimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Disturb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Saturate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></span><a class="reference internal" href="../_modules/Simulation/runners.html#run_discrete_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.runners.run_discrete_control" title="Lien vers cette définition"></a></dt>
+<dd><p>Runs the discrete closed-loop simulation and returns the populated logger.</p>
+<p>The plant is modelled as a discrete transfer function stepped via <code class="docutils literal notranslate"><span class="pre">TFSimulator</span></code>.
+The controller is sampled at every step (one call to <code class="docutils literal notranslate"><span class="pre">controller.step</span></code> per
+<code class="docutils literal notranslate"><span class="pre">config_file.dt</span></code> interval).</p>
+<section id="hardcoded-values">
+<h3>Hardcoded values<a class="headerlink" href="#hardcoded-values" title="Lien vers cette rubrique"></a></h3>
+<dl class="simple">
+<dt>Disturbance magnitude<span class="classifier">2.0</span></dt><dd><p>A step disturbance of 2.0 is added to the plant input <code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">+</span> <span class="pre">d</span></code> for all samples
+<code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">&gt;=</span> <span class="pre">int(3.0</span> <span class="pre">/</span> <span class="pre">dt)</span></code>.  The logged control signal is the raw controller output.
+RST (S(1) = 0) returns the position to <code class="docutils literal notranslate"><span class="pre">r</span></code> exactly; PID (Ki = 0) settles with
+a permanent offset ≈ D / Kp.  See the module docstring for the rationale.</p>
+</dd>
+<dt>Saturation limits<span class="classifier">[−10, +10]</span></dt><dd><p>The raw controller output is clipped to this range before being sent to the plant.
+See the module docstring for the rationale.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param plant_sim<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Simulator initialised with the plant’s discrete transfer function.</p>
+</dd>
+<dt class="field-even">type plant_sim<span class="colon">:</span></dt>
+<dd class="field-even"><p>TFSimulator</p>
+</dd>
+<dt class="field-odd">param controller<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Controller object exposing <code class="docutils literal notranslate"><span class="pre">step(y)</span></code> and <code class="docutils literal notranslate"><span class="pre">setReference(r)</span></code> methods.</p>
+</dd>
+<dt class="field-even">param config_file<span class="colon">:</span></dt>
+<dd class="field-even"><p>Plant configuration module; must expose <code class="docutils literal notranslate"><span class="pre">T</span></code> (total time [s]) and <code class="docutils literal notranslate"><span class="pre">dt</span></code>
+(sampling period [s]).</p>
+</dd>
+<dt class="field-odd">param r<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Reference (setpoint) for the controller.</p>
+</dd>
+<dt class="field-even">type r<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">param y_0<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Initial plant output.</p>
+</dd>
+<dt class="field-even">type y_0<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">param logger<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog instance used to record time, output, and input.</p>
+</dd>
+<dt class="field-even">type logger<span class="colon">:</span></dt>
+<dd class="field-even"><p>SimLog</p>
+</dd>
+<dt class="field-odd">param Disturb<span class="colon">:</span></dt>
+<dd class="field-odd"><p>If True, adds a step input disturbance of 2.0 to the
+plant input for all samples from t = 3 s onward.  Defaults to True.</p>
+</dd>
+<dt class="field-even">type Disturb<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool, optional</p>
+</dd>
+<dt class="field-odd">param Saturate<span class="colon">:</span></dt>
+<dd class="field-odd"><p>If True, clips the control signal to [−10, +10].
+Defaults to True.</p>
+</dd>
+<dt class="field-even">type Saturate<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool, optional</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The logger passed as input, now populated with simulation data.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>SimLog</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Simulation.runners.run_discrete_impulse_response">
+<span class="sig-prename descclassname"><span class="pre">Simulation.runners.</span></span><span class="sig-name descname"><span class="pre">run_discrete_impulse_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant_sim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Simulation.simulation.TFSimulator" title="Simulation.simulation.TFSimulator"><span class="pre">TFSimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></span><a class="reference internal" href="../_modules/Simulation/runners.html#run_discrete_impulse_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.runners.run_discrete_impulse_response" title="Lien vers cette définition"></a></dt>
+<dd><p>Runs the open-loop discrete impulse response and returns the populated logger.</p>
+<p>The impulse magnitude is 1/dt so that the discrete impulse approximates a continuous
+Dirac delta with unit area (∫u dt ≈ (1/dt)·dt = 1).  After the first sample, u[k] = 0
+for all remaining steps.</p>
+<section id="id1">
+<h3>Hardcoded values<a class="headerlink" href="#id1" title="Lien vers cette rubrique"></a></h3>
+<dl class="simple">
+<dt>Impulse magnitude<span class="classifier">1/config_file.dt</span></dt><dd><p>Chosen to normalise the impulse energy to 1, consistent with the continuous-domain
+convention.  For dt = 0.02 s this gives u[0] = 50.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param plant_sim<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Simulator initialised with the plant’s discrete transfer function.</p>
+</dd>
+<dt class="field-even">type plant_sim<span class="colon">:</span></dt>
+<dd class="field-even"><p>TFSimulator</p>
+</dd>
+<dt class="field-odd">param config_file<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Plant configuration module; must expose <code class="docutils literal notranslate"><span class="pre">T</span></code> and <code class="docutils literal notranslate"><span class="pre">dt</span></code>.</p>
+</dd>
+<dt class="field-even">param y_0<span class="colon">:</span></dt>
+<dd class="field-even"><p>Initial plant output.</p>
+</dd>
+<dt class="field-odd">type y_0<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">param logger<span class="colon">:</span></dt>
+<dd class="field-even"><p>SimLog instance used to record time, output, and input.</p>
+</dd>
+<dt class="field-odd">type logger<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+<dt class="field-even">returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The logger passed as input, now populated with simulation data.</p>
+</dd>
+<dt class="field-odd">rtype<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Simulation.runners.run_discrete_step_response">
+<span class="sig-prename descclassname"><span class="pre">Simulation.runners.</span></span><span class="sig-name descname"><span class="pre">run_discrete_step_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant_sim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Simulation.simulation.TFSimulator" title="Simulation.simulation.TFSimulator"><span class="pre">TFSimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(dans Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></span><a class="reference internal" href="../_modules/Simulation/runners.html#run_discrete_step_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.runners.run_discrete_step_response" title="Lien vers cette définition"></a></dt>
+<dd><p>Runs the open-loop discrete step response and returns the populated logger.</p>
+<p>A constant unit input u = 1.0 is applied for the full simulation duration.</p>
+<section id="id2">
+<h3>Hardcoded values<a class="headerlink" href="#id2" title="Lien vers cette rubrique"></a></h3>
+<dl class="simple">
+<dt>Step magnitude<span class="classifier">1.0</span></dt><dd><p>Unit step input applied at k = 0 and held constant.  Scale the result by any
+other magnitude to obtain the step response for a different input level.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param plant_sim<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Simulator initialised with the plant’s discrete transfer function.</p>
+</dd>
+<dt class="field-even">type plant_sim<span class="colon">:</span></dt>
+<dd class="field-even"><p>TFSimulator</p>
+</dd>
+<dt class="field-odd">param config_file<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Plant configuration module; must expose <code class="docutils literal notranslate"><span class="pre">T</span></code> and <code class="docutils literal notranslate"><span class="pre">dt</span></code>.</p>
+</dd>
+<dt class="field-even">param y_0<span class="colon">:</span></dt>
+<dd class="field-even"><p>Initial plant output.</p>
+</dd>
+<dt class="field-odd">type y_0<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">param logger<span class="colon">:</span></dt>
+<dd class="field-even"><p>SimLog instance used to record time, output, and input.</p>
+</dd>
+<dt class="field-odd">type logger<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+<dt class="field-even">returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The logger passed as input, now populated with simulation data.</p>
+</dd>
+<dt class="field-odd">rtype<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Simulation.runners.run_continuous_control_loop">
+<span class="sig-prename descclassname"><span class="pre">Simulation.runners.</span></span><span class="sig-name descname"><span class="pre">run_continuous_control_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Simulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Disturb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Saturate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></span><a class="reference internal" href="../_modules/Simulation/runners.html#run_continuous_control_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.runners.run_continuous_control_loop" title="Lien vers cette définition"></a></dt>
+<dd><p>Runs the closed-loop hybrid simulation (continuous plant, discrete controller).</p>
+<p>The plant is integrated at <code class="docutils literal notranslate"><span class="pre">dt_plant</span></code> = 1 ms using RK4; the controller output is
+updated every <code class="docutils literal notranslate"><span class="pre">config_file.dt</span></code> seconds (zero-order hold between updates).  Within
+each control period, <code class="docutils literal notranslate"><span class="pre">N_substep</span> <span class="pre">=</span> <span class="pre">config_file.dt</span> <span class="pre">/</span> <span class="pre">dt_plant</span></code> RK4 steps are taken.
+Every RK4 substep is logged, so the output log has a 1 ms resolution regardless of
+the controller sampling period.</p>
+<section id="id3">
+<h3>Hardcoded values<a class="headerlink" href="#id3" title="Lien vers cette rubrique"></a></h3>
+<dl class="simple">
+<dt>Disturbance magnitude<span class="classifier">2.0</span></dt><dd><p>A step disturbance of 2.0 is added to the controller output before it is sent
+to the plant for all control periods starting at t = 3 s.  The plant receives
+<code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">+</span> <span class="pre">d</span></code> via <code class="docutils literal notranslate"><span class="pre">u_k</span></code>; the logged control signal is the raw controller output.
+RST (S(1) = 0) returns to <code class="docutils literal notranslate"><span class="pre">r</span></code> exactly; PID (Ki = 0) settles with a permanent
+offset ≈ D / Kp.  See the module docstring for the rationale.</p>
+</dd>
+<dt>Saturation limits<span class="classifier">[−10, +10]</span></dt><dd><p>The controller output is clipped to this range before the ZOH hold.
+See the module docstring for the rationale.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param Simulator<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Hybrid simulator initialised with
+the plant’s state-space model.  Must expose <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">config_file</span></code>, <code class="docutils literal notranslate"><span class="pre">dt_plant</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">rk4_step</span></code>.</p>
+</dd>
+<dt class="field-even">type Simulator<span class="colon">:</span></dt>
+<dd class="field-even"><p>HybridSim or NonLinearHybridSim</p>
+</dd>
+<dt class="field-odd">param controller<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Controller object exposing <code class="docutils literal notranslate"><span class="pre">step(y)</span></code> and <code class="docutils literal notranslate"><span class="pre">setReference(r)</span></code> methods.</p>
+</dd>
+<dt class="field-even">param r<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reference (setpoint) for the controller.</p>
+</dd>
+<dt class="field-odd">param X_0<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Initial state vector of the continuous plant.</p>
+</dd>
+<dt class="field-even">param Logger<span class="colon">:</span></dt>
+<dd class="field-even"><p>SimLog instance used to record time, output, and input.</p>
+</dd>
+<dt class="field-odd">type Logger<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+<dt class="field-even">param Disturb<span class="colon">:</span></dt>
+<dd class="field-even"><p>If True, adds a step input disturbance of 2.0 to the
+plant input from t = 3 s onward.  Defaults to True.</p>
+</dd>
+<dt class="field-odd">type Disturb<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool, optional</p>
+</dd>
+<dt class="field-even">param Saturate<span class="colon">:</span></dt>
+<dd class="field-even"><p>If True, clips the control signal to [−10, +10].
+Defaults to True.</p>
+</dd>
+<dt class="field-odd">type Saturate<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool, optional</p>
+</dd>
+<dt class="field-even">returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The logger passed as input, now populated with simulation data.</p>
+</dd>
+<dt class="field-odd">rtype<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Simulation.runners.run_continuous_impulse_response">
+<span class="sig-prename descclassname"><span class="pre">Simulation.runners.</span></span><span class="sig-name descname"><span class="pre">run_continuous_impulse_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HybridSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></span><a class="reference internal" href="../_modules/Simulation/runners.html#run_continuous_impulse_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.runners.run_continuous_impulse_response" title="Lien vers cette définition"></a></dt>
+<dd><p>Runs the open-loop continuous impulse response using RK4 integration.</p>
+<p>The impulse magnitude is 1/dt_plant so that the discrete pulse approximates a continuous
+Dirac delta with unit area, consistent with <code class="docutils literal notranslate"><span class="pre">run_discrete_impulse_response</span></code>.
+After the first integration step, u = 0 for all remaining steps.</p>
+<section id="id4">
+<h3>Hardcoded values<a class="headerlink" href="#id4" title="Lien vers cette rubrique"></a></h3>
+<dl class="simple">
+<dt>Impulse magnitude<span class="classifier">1/HybridSim.dt_plant</span></dt><dd><p>With dt_plant = 1e-3 s this gives u[0] = 1000, normalising the impulse energy to 1.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param HybridSim<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Hybrid simulator initialised with the plant’s state-space model.</p>
+</dd>
+<dt class="field-even">type HybridSim<span class="colon">:</span></dt>
+<dd class="field-even"><p>HybridSim</p>
+</dd>
+<dt class="field-odd">param X_0<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Initial state vector of the continuous plant.</p>
+</dd>
+<dt class="field-even">param Logger<span class="colon">:</span></dt>
+<dd class="field-even"><p>SimLog instance used to record time, output, and input.</p>
+</dd>
+<dt class="field-odd">type Logger<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+<dt class="field-even">returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The logger passed as input, now populated with simulation data.</p>
+</dd>
+<dt class="field-odd">rtype<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Simulation.runners.run_continuous_step_response">
+<span class="sig-prename descclassname"><span class="pre">Simulation.runners.</span></span><span class="sig-name descname"><span class="pre">run_continuous_step_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">HybridSim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="metrics_plotting.html#Metrics_Plotting.SimLog.SimLog" title="Metrics_Plotting.SimLog.SimLog"><span class="pre">SimLog</span></a></span></span><a class="reference internal" href="../_modules/Simulation/runners.html#run_continuous_step_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Simulation.runners.run_continuous_step_response" title="Lien vers cette définition"></a></dt>
+<dd><p>Runs the open-loop continuous step response using RK4 integration.</p>
+<p>A constant unit input u = 1.0 is applied for the full simulation duration.</p>
+<section id="id5">
+<h3>Hardcoded values<a class="headerlink" href="#id5" title="Lien vers cette rubrique"></a></h3>
+<dl class="simple">
+<dt>Step magnitude<span class="classifier">1.0</span></dt><dd><p>Unit step input held constant from t = 0.  Scale the result for other magnitudes.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param HybridSim<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Hybrid simulator initialised with the plant’s state-space model.</p>
+</dd>
+<dt class="field-even">type HybridSim<span class="colon">:</span></dt>
+<dd class="field-even"><p>HybridSim</p>
+</dd>
+<dt class="field-odd">param X_0<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Initial state vector of the continuous plant.</p>
+</dd>
+<dt class="field-even">param Logger<span class="colon">:</span></dt>
+<dd class="field-even"><p>SimLog instance used to record time, output, and input.</p>
+</dd>
+<dt class="field-odd">type Logger<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+<dt class="field-even">returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The logger passed as input, now populated with simulation data.</p>
+</dd>
+<dt class="field-odd">rtype<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimLog</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="control.html" class="btn btn-neutral float-left" title="Control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

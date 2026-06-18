@@ -1,0 +1,76 @@
+Vue d'ensemble
+==============
+
+Architecture
+------------
+
+Le projet est organise en couches independantes :
+
+.. code-block:: text
+
+   Notebooks
+     |-- Simulation/runners.py          <- cablage haut niveau (D=2, sat=+/-10, t=3s)
+          |-- Simulation/simulation.py  <- TFSimulator, HybridSim, NonLinearHybridSim
+          |-- Control/                  <- DiscretePID, RSTController
+          |-- Models/BallBeam/          <- config, TransferFunctionModel, StateSpace, Nonlinear
+          `-- Metrics_Plotting/         <- SimLog, Metrics, Plotting
+   Utils/computeRST.py                  <- synthese RST (sans dependances circulaires)
+   Utils/utils.py                       <- exportation CSV, constructeurs utilitaires
+
+Modele du systeme
+-----------------
+
+Le systeme **balle sur poutre** est decrit par la fonction de transfert continue :
+
+.. math::
+
+   F(s) = \frac{H}{s^2}, \quad
+   H = \frac{m \cdot g \cdot d}{L \cdot (J/R^2 + m)} \approx 0.21 \;\text{m s}^{-2}/\text{rad}
+
+Apres discretisation ZOH a :math:`T_e = 0.05` s :
+
+.. math::
+
+   F(z) = \frac{0.000263\,(z+1)}{z^2 - 2z + 1}
+
+Les deux poles en :math:`z = 1` (double integrateur discret) rendent le systeme non
+asymptotiquement stable en boucle ouverte.
+
+Interface commune des correcteurs
+----------------------------------
+
+Les classes ``DiscretePID`` et ``RSTController`` partagent trois methodes :
+
+* ``reset()`` --- remet l'etat interne a zero avant chaque simulation.
+* ``setReference(r)`` --- fixe la consigne.
+* ``step(y) -> float`` --- calcule la commande :math:`u[k]` a partir de la mesure :math:`y[k]`.
+
+Cette interface commune permet de substituer un correcteur par un autre dans les
+fonctions *runner* sans modifier le code de simulation.
+
+Constantes cablees dans les runners
+-------------------------------------
+
+==================== ======= ==================================================
+Constante            Valeur  Role
+==================== ======= ==================================================
+Perturbation (ampl.) 2.0     Echelon injecte a l'entree de la plante
+Perturbation (t)     t >= 3s Reserve 3 s pour le transitoire de poursuite
+Saturation           +/-10   Limite physique du servo de la poutre
+Pas integration      1 ms    20x plus fin que la periode correcteur (50 Hz)
+==================== ======= ==================================================
+
+Synthese RST
+------------
+
+Deux fonctions de synthese sont disponibles dans ``Utils/computeRST.py`` :
+
+``Compute_Denominator_Matching_RST(A_m, plant_tf, Integrator, A0)``
+   Specifier uniquement les poles dominants :math:`A_m`. Le polynome :math:`T = t_0 \cdot A_0`
+   impose un gain statique unitaire et annule :math:`A_0` de la boucle fermee.
+
+``Compute_Desired_RST(Desired_TF, plant_tf, Integrator, A0)``
+   Specifier la fonction de transfert desiree complete :math:`B_{cl}/A_m`.
+   Le numerateur :math:`B_{cl}` doit etre divisible par :math:`B`.
+
+Les deux fonctions retournent ``(S_tf, R_tf, T_tf, H_cl)``.

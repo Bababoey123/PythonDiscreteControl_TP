@@ -318,22 +318,20 @@ def Compute_Desired_RST(Desired_TF, plant_discrete_tf, Integrator=True, A0=None)
 
     Computes S, R, T using the Landau observer polynomial formulation.  The algorithm:
 
-      1. Solve the *reduced* Diophantine for S', R':
-             A_eff(z) · S'(z) + B(z) · R'(z) = A_m(z)
-         where A_m = Desired_TF.den and A_eff = A*(z-1) when Integrator=True.
+    1. Solve the *reduced* Diophantine for S', R'
+       (where ``A_m = Desired_TF.den`` and ``A_eff = A*(z-1)`` when ``Integrator=True``)::
 
-      2. Apply the observer polynomial factor:
-             S = A0 · S',   R = A0 · R',   T = A0 · T'   (T' = B_cl / B)
-         so that:
-             H_cl = B·T / (A·S + B·R) = B·(A0·T') / (A_m·A0) = B·T' / A_m
-                  = B·(B_cl/B) / A_m = B_cl / A_m = Desired_TF
-         The A0 poles cancel exactly from the closed-loop reference-to-output path.
+           A_eff(z) · S'(z) + B(z) · R'(z) = A_m(z)
 
-    Degree constraint
-    -----------------
-    ``Desired_TF.den`` (the dominant polynomial A_m) must satisfy:
-        deg(A_m) ≤ deg(A) + deg(B)
-    A0 may have any degree; it does not consume this budget.
+    2. Apply the observer polynomial factor (``T' = B_cl / B``) so that A0 cancels from
+       the closed-loop reference-to-output path::
+
+           S = A0 · S',   R = A0 · R',   T = A0 · T'
+           H_cl = B·T / (A·S + B·R) = B_cl / A_m = Desired_TF
+
+    Degree constraint: ``Desired_TF.den`` (the dominant polynomial A_m) must satisfy
+    ``deg(A_m) <= deg(A) + deg(B)``.  A0 may have any degree; it does not consume this
+    budget.
 
     Args:
         Desired_TF (ct.TransferFunction): Desired closed-loop TF B_cl(z) / A_m(z)

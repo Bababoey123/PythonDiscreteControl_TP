@@ -3,7 +3,13 @@ import control as ct
 
 
 class TransferFunctionModel:
-    """Continuous and ZOH-discretised transfer function for plant.
+    """Continuous and ZOH-discretised transfer function for a generic plant.
+
+    Attributes:
+        Tf_cont (ct.TransferFunction): Continuous-time transfer function built from config.
+        Tf_dis (ct.TransferFunction): ZOH-discretised transfer function at period ``config_file.dt``.
+        num_dis (np.ndarray): Numerator coefficients of the discrete TF, shape (nb,).
+        den_dis (np.ndarray): Denominator coefficients of the discrete TF, shape (na+1,).
 
     The config must expose:
         ``num_cont`` — list of continuous numerator coefficients
@@ -12,6 +18,11 @@ class TransferFunctionModel:
     """
 
     def __init__(self, config_file):
+        """Builds continuous and discrete transfer functions from a config module.
+
+        Args:
+            config_file: Plant configuration module exposing ``num_cont``, ``den_cont``, ``dt``.
+        """
         self.Tf_cont = ct.tf(config_file.num_cont, config_file.den_cont)
         self.Tf_dis = ct.c2d(self.Tf_cont, config_file.dt, method='zoh')
 

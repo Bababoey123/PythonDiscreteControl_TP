@@ -1,3 +1,10 @@
+"""Performance metrics for closed-loop simulation results.
+
+``Metrics`` computes time-domain step-response metrics (rise time, settling time,
+overshoot) and frequency-domain stability margins (gain margin, phase margin) from
+either a ``SimLog`` or a ``ct.TransferFunction``.
+"""
+
 import numpy as np
 import control as ct
 from Metrics_Plotting.SimLog import SimLog
@@ -22,12 +29,11 @@ class Metrics:
             so any sample after this instant reflects disturbance rejection rather than reference
             tracking.
         10 % / 90 % of reference
-            Standard IEEE rise-time definition: the time for the output to travel from 10 % to
+            Rise-time definition: the time for the output to travel from 10 % to
             90 % of the reference value.
         ±10 % band
             Settling-time tolerance band.  The settling time is the last instant at which the
-            output is still outside this band.  A tighter ±2 % band is conventional; the 10 %
-            band is used here to be conservative with the ball-and-beam's relatively slow dynamics.
+            output is still outside this band.
         2.5 s to 3.0 s window
             Last 0.5 s before the disturbance onset, used to estimate the steady-state output
             once the transient has died out.
@@ -48,7 +54,7 @@ class Metrics:
         peak = np.max(y_cl)
         overshoot = (peak - reference) / reference * 100 if peak > reference else 0.0
 
-        # Rise time: first 10 % crossing → first 90 % crossing (standard IEEE definition)
+        # Rise time: first 10 % crossing → first 90 % crossing
         idx_10 = np.where(y_cl >= 0.1 * reference)[0]
         idx_90 = np.where(y_cl >= 0.9 * reference)[0]
         rise_time = (t_cl[idx_90[0]] - t_cl[idx_10[0]]) if len(idx_10) and len(idx_90) else float('nan')

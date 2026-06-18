@@ -68,25 +68,23 @@ def Place_real_radius(plant_tf, pole_radius=0.85, steady_gain=1.0):
     B_cl = scale * B
 
     return ct.tf(B_cl, A_cl, plant_tf.dt)
-import numpy as np
+
 
 def poles_to_denominator(poles, check_stability=True, tol=1e-2):
-    """
-    Build a monic denominator polynomial from discrete-time poles.
+    """Builds a monic denominator polynomial from discrete-time poles.
 
-    Parameters
-    ----------
-    poles : array-like
-        Desired poles in the z-plane.
-    check_stability : bool
-        If True, warn if any pole is outside the unit circle.
-    tol : float
-        Threshold for removing numerical imaginary parts.
+    Args:
+        poles (array-like): Desired pole locations in the z-plane.
+        check_stability (bool, optional): If True, raises ``ValueError`` when any
+            pole lies on or outside the unit circle (``abs(z) >= 1``).  Defaults to True.
+        tol (float, optional): Threshold below which residual imaginary parts of the
+            computed coefficients are discarded.  Defaults to 1e-2.
 
-    Returns
-    -------
-    den : np.ndarray
-        Denominator coefficients in descending powers of z.
+    Returns:
+        np.ndarray: Monic denominator coefficients in descending powers of z.
+
+    Raises:
+        ValueError: If ``check_stability`` is True and any pole is unstable.
     """
 
     poles = np.asarray(poles, dtype=complex)

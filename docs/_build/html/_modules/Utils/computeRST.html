@@ -1,0 +1,616 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utils.computeRST &mdash; Documentation PythonDiscreteControl_TP 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PythonDiscreteControl_TP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Vue d’ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">Référence API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PythonDiscreteControl_TP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">Utils.computeRST</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de Utils.computeRST</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">control</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ct</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+
+<div class="viewcode-block" id="trim">
+<a class="viewcode-back" href="../../api/utils.html#Utils.computeRST.trim">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">trim</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes leading zeros from a polynomial coefficient array.</span>
+
+<span class="sd">    Leading zeros represent unnecessary high-order terms (e.g. [0, 0, 1] is just [1]).</span>
+<span class="sd">    If the entire array is zero the function returns [0.0] rather than an empty array,</span>
+<span class="sd">    so that downstream polynomial operations always receive a valid input.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p (array-like): Polynomial coefficients in descending order of power.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: Trimmed coefficient array with no leading zeros (minimum length 1).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">trim_zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="conv_matrix">
+<a class="viewcode-back" href="../../api/utils.html#Utils.computeRST.conv_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">conv_matrix</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Builds the convolution (Toeplitz) matrix for polynomial multiplication.</span>
+
+<span class="sd">    Returns a matrix M such that  M @ x == np.convolve(a, x)  for any length-n</span>
+<span class="sd">    vector x.  This lets the Diophantine equation A·S + B·R = A_m be written as</span>
+<span class="sd">    a linear system M·θ = A_m and solved with least squares.</span>
+
+<span class="sd">    The returned matrix has shape (len(a) + n − 1, n).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a (array-like): Polynomial coefficient array (the fixed polynomial).</span>
+<span class="sd">        n (int): Length of the unknown polynomial x (number of columns).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: Toeplitz convolution matrix of shape (len(a) + n − 1, n).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">toeplitz</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)[:</span><span class="n">m</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">n</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="Compute_Denominator_Matching_RST">
+<a class="viewcode-back" href="../../api/utils.html#Utils.computeRST.Compute_Denominator_Matching_RST">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Compute_Denominator_Matching_RST</span><span class="p">(</span><span class="n">A_cl</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">plant_discrete_tf</span><span class="p">,</span> <span class="n">Integrator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">A0</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;RST synthesis by denominator (characteristic polynomial) matching.</span>
+
+<span class="sd">    Computes S, R, T by solving the Diophantine equation and setting T = t0 · A0.</span>
+<span class="sd">    The A0 factor in T cancels with the A0 factor in the closed-loop denominator:</span>
+
+<span class="sd">        H_ry = B·T / (A·S + B·R) = B·(t0·A0) / (A_m·A0) = t0·B / A_m</span>
+
+<span class="sd">    so the reference-to-output dynamics are governed by A_m alone.</span>
+
+<span class="sd">    Algorithm</span>
+<span class="sd">    ---------</span>
+<span class="sd">    1. Build the target polynomial ``A_cl_total = A_m * A0``.</span>
+<span class="sd">    2. **Dead-beat fill** (if needed): if ``A_cl_total`` is shorter than the</span>
+<span class="sd">       Diophantine system capacity, trailing zeros are appended (= poles at z=0).</span>
+<span class="sd">       This avoids a forced leading-zero in the right-hand side that would flip the</span>
+<span class="sd">       sign of S and cause the closed-loop simulation to diverge.  A ``UserWarning``</span>
+<span class="sd">       is issued; pass an explicit ``A0`` to control pole placement.</span>
+<span class="sd">    3. **Direct solve** (when ``A_cl_total`` fits the system): solve</span>
+<span class="sd">       ``A_eff · S_tilde + B · R = A_cl_total`` directly.  With no leading zeros</span>
+<span class="sd">       the sign of S_tilde[0] is positive, as required by the 1/S filter.</span>
+<span class="sd">    4. **Two-step Landau fallback** (when ``A_cl_total`` exceeds the system): solve</span>
+<span class="sd">       the reduced equation against ``A_m``, then set ``S = A0 · S&#39;``,</span>
+<span class="sd">       ``R = A0 · R&#39;``.</span>
+<span class="sd">    5. Set ``T = t0 · A0``, where ``t0 = A_m(1) / B(1)`` enforces unity DC gain.</span>
+
+<span class="sd">    Degree constraint</span>
+<span class="sd">    -----------------</span>
+<span class="sd">    ``deg(A_m)`` alone must not exceed the system capacity</span>
+<span class="sd">    ``deg(A) + deg(B)`` (``deg(A_eff) + deg(B) - 1`` with Integrator).</span>
+<span class="sd">    ``deg(A0)`` is unrestricted: when ``A_m · A0`` overflows, the two-step</span>
+<span class="sd">    Landau fallback handles it automatically.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        A_cl (list): Coefficients of the *dominant* closed-loop characteristic</span>
+<span class="sd">            polynomial A_m(z) in descending powers of z.  Must NOT include the</span>
+<span class="sd">            observer polynomial A0 — pass only the pole locations you want to dominate</span>
+<span class="sd">            the transient response.</span>
+<span class="sd">        plant_discrete_tf (ct.TransferFunction): Discrete plant transfer function B(z)/A(z).</span>
+<span class="sd">        Integrator (bool, optional): If True, forces S to contain (z-1) to guarantee</span>
+<span class="sd">            zero steady-state error for step references and exact rejection of constant</span>
+<span class="sd">            disturbances (S(1) = 0).  Defaults to True.</span>
+<span class="sd">        A0 (array-like or None, optional): Observer polynomial.  Its roots are additional</span>
+<span class="sd">            closed-loop poles placed faster than A_m; they cancel from the reference path</span>
+<span class="sd">            via T = t0·A0.  Pass None to let the function choose poles automatically</span>
+<span class="sd">            (a UserWarning is issued when dead-beat fill is applied).  Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple:</span>
+<span class="sd">            S_tf (ct.TransferFunction): S polynomial as a discrete TF with denominator 1.</span>
+<span class="sd">            R_tf (ct.TransferFunction): R polynomial as a discrete TF with denominator 1.</span>
+<span class="sd">            T_tf (ct.TransferFunction): T polynomial as a discrete TF with denominator 1.</span>
+<span class="sd">            H_cl (ct.TransferFunction): Closed-loop transfer function B·T / (A·S + B·R).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If A_cl degree exceeds the controller structure capacity, or if</span>
+<span class="sd">            A_m * A0 contains unstable poles.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 1. Extract and normalise plant polynomials</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">den</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">num</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">a_lead</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">/</span> <span class="n">a_lead</span>   <span class="c1"># make A monic</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">B</span> <span class="o">/</span> <span class="n">a_lead</span>   <span class="c1"># scale B consistently</span>
+
+    <span class="c1"># A_cl is the dominant polynomial A_m (does NOT include A0)</span>
+    <span class="n">A_m</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A_cl</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+    <span class="n">A_m</span> <span class="o">=</span> <span class="n">A_m</span> <span class="o">/</span> <span class="n">A_m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># make monic</span>
+
+    <span class="n">A0</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A0</span> <span class="k">if</span> <span class="n">A0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+    <span class="n">A0</span> <span class="o">=</span> <span class="n">A0</span> <span class="o">/</span> <span class="n">A0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># make monic</span>
+
+    <span class="c1"># Total desired characteristic polynomial: A_m * A0</span>
+    <span class="n">A_cl_total</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A_m</span><span class="p">,</span> <span class="n">A0</span><span class="p">))</span>
+
+    <span class="n">deg_A</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">deg_B</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">INT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+
+    <span class="c1"># ============================================================================</span>
+    <span class="c1"># 2. Choose controller structure orders (determined by plant, not by A0)</span>
+    <span class="c1">#</span>
+    <span class="c1"># The Diophantine is solved for S&#39;, R&#39; of the same degrees as without A0.</span>
+    <span class="c1"># A0 is then multiplied in after the solve (Landau two-step formulation).</span>
+    <span class="c1">#</span>
+    <span class="c1"># NON-INTEGRATOR:  deg(S&#39;) = deg(B),  deg(R&#39;) = deg(A)</span>
+    <span class="c1"># INTEGRATOR:      S&#39; = (z-1)·S_tilde&#39;,  deg(S_tilde&#39;) = deg(B)-1</span>
+    <span class="c1"># ============================================================================</span>
+    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+        <span class="n">deg_S_tilde</span> <span class="o">=</span> <span class="n">deg_B</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">deg_S_tilde</span> <span class="o">=</span> <span class="n">deg_B</span>
+    <span class="n">deg_R</span> <span class="o">=</span> <span class="n">deg_A</span>
+    <span class="n">nS</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">deg_S_tilde</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">nR</span> <span class="o">=</span> <span class="n">deg_R</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># ============================================================================</span>
+    <span class="c1"># 3. Build reduced Diophantine:  A_eff · S_tilde&#39; + B · R&#39; = A_m</span>
+    <span class="c1"># ============================================================================</span>
+    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+        <span class="n">AS</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">INT</span><span class="p">),</span> <span class="n">nS</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">AS</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">nS</span><span class="p">)</span>
+
+    <span class="n">BR</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">nR</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">AS</span><span class="p">,</span> <span class="n">BR</span><span class="p">])</span>
+
+    <span class="c1"># Degree constraint: A_m (dominant polynomial) must fit in the Diophantine system.</span>
+    <span class="n">target_len</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">target_len</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Dominant polynomial A_cl (degree </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">) exceeds the system capacity &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;(max degree </span><span class="si">{</span><span class="n">target_len</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> for this plant/structure). Reduce A_cl degree.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Stability check on the total characteristic polynomial A_m * A0</span>
+    <span class="n">poles_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">poles_total</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;A_cl * A0 contains poles outside the unit circle. &quot;</span>
+            <span class="s2">&quot;Ensure all roots of A_cl and A0 are inside the unit disk.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">poles_total</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;A_cl * A0 contains a pole on the unit circle. &quot;</span>
+            <span class="s2">&quot;Closed-loop response may be marginally stable.&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span>
+        <span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Dead-beat fill: if A_cl_total is shorter than target_len, append trailing</span>
+    <span class="c1"># zeros (= multiply by z^slack, adding poles at z=0).</span>
+    <span class="c1">#</span>
+    <span class="c1"># WHY: padding with LEADING zeros forces the first Diophantine equation to</span>
+    <span class="c1"># &quot;s0 + b·r0 = 0&quot;, giving s0 &lt; 0 and inverting the 1/S filter sign →</span>
+    <span class="c1"># simulation diverges.  TRAILING zeros shift the polynomial left without</span>
+    <span class="c1"># touching the leading coefficient, so s0 = 1 - b·r0 &gt; 0 is preserved.</span>
+    <span class="c1">#</span>
+    <span class="c1"># This situation arises when A_m has lower degree than the system capacity</span>
+    <span class="c1"># (e.g. double integrator + Integrator=True + A0=None: capacity degree 3,</span>
+    <span class="c1"># A_m degree 2 → slack = 1).  The extra z=0 pole decays in one step and</span>
+    <span class="c1"># does not meaningfully affect the transient response.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">slack</span> <span class="o">=</span> <span class="n">target_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">slack</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">A_cl_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">A_cl_total</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">slack</span><span class="p">)]</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;A_m * A0 (degree </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">slack</span><span class="si">}</span><span class="s2">) is </span><span class="si">{</span><span class="n">slack</span><span class="si">}</span><span class="s2"> degree(s) below &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;the Diophantine system capacity (degree </span><span class="si">{</span><span class="n">target_len</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">). &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">slack</span><span class="si">}</span><span class="s2"> deadbeat pole(s) at z=0 added automatically. &quot;</span>
+            <span class="s2">&quot;Pass an explicit A0 to control the placement of these poles.&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span>
+        <span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 4. Solve the Diophantine.</span>
+    <span class="c1">#</span>
+    <span class="c1">#    Two strategies depending on whether A_cl_total fits in the system:</span>
+    <span class="c1">#</span>
+    <span class="c1">#    DIRECT (preferred when A_cl_total fits):</span>
+    <span class="c1">#      Target = A_cl_total = A_m * A0.  The leading coefficient of the target is</span>
+    <span class="c1">#      positive (A_m and A0 are monic), so S_tilde[0] &gt; 0 and S[0] &gt; 0.  A positive</span>
+    <span class="c1">#      S[0] is required for the 1/S filter in RSTController to drive the plant in the</span>
+    <span class="c1">#      correct direction.  Solving against A_m alone (with a leading-zero pad) forces</span>
+    <span class="c1">#      S_tilde[0] &lt; 0, inverts the 1/S gain, and causes the simulation to diverge.</span>
+    <span class="c1">#</span>
+    <span class="c1">#    TWO-STEP LANDAU (fallback when A_cl_total exceeds the system):</span>
+    <span class="c1">#      Target = A_m, then S = A0 * S&#39;, R = A0 * R&#39;.  Required when A_m is at the</span>
+    <span class="c1">#      system degree limit and A_cl_total would overflow it.  For most non-integrating</span>
+    <span class="c1">#      plants A_m exactly fills target_len, ensuring S&#39;[0] &gt; 0.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">target_len</span><span class="p">:</span>
+        <span class="c1"># Direct solve: A_cl_total fits — target the full polynomial.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Direct Solve Used&#39;</span><span class="p">)</span>
+        <span class="n">rhs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">target_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)),</span> <span class="n">A_cl_total</span><span class="p">]</span>
+        <span class="n">theta</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">S_tilde</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[:</span><span class="n">nS</span><span class="p">]</span>
+        <span class="n">R_coeffs</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="n">nS</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+            <span class="n">S_coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">S_tilde</span><span class="p">,</span> <span class="n">INT</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">S_coeffs</span> <span class="o">=</span> <span class="n">S_tilde</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Two-step Landau: target A_m, then apply A0 factorisation.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Two step used &#39;</span><span class="p">)</span>
+        <span class="n">A_m_padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">target_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)),</span> <span class="n">A_m</span><span class="p">]</span>
+        <span class="n">theta</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">A_m_padded</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">S_tilde_prime</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[:</span><span class="n">nS</span><span class="p">]</span>
+        <span class="n">R_prime</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="n">nS</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+            <span class="n">S_prime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">S_tilde_prime</span><span class="p">,</span> <span class="n">INT</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">S_prime</span> <span class="o">=</span> <span class="n">S_tilde_prime</span>
+        <span class="n">S_coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A0</span><span class="p">,</span> <span class="n">S_prime</span><span class="p">)</span>
+        <span class="n">R_coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A0</span><span class="p">,</span> <span class="n">R_prime</span><span class="p">)</span>
+
+    <span class="c1"># Verify: A*S + B*R should equal A_cl_total = A_m * A0</span>
+    <span class="n">den_check</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyadd</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polymul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">S_coeffs</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">polymul</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">R_coeffs</span><span class="p">))</span>
+    <span class="n">A_cl_v</span> <span class="o">=</span> <span class="n">A_cl_total</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">den_check</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_v</span><span class="p">))</span>
+    <span class="n">den_check_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pad</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">den_check</span><span class="p">)),</span> <span class="n">den_check</span><span class="p">]</span>
+    <span class="n">A_cl_v_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pad</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_v</span><span class="p">)),</span> <span class="n">A_cl_v</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">den_check_p</span><span class="p">,</span> <span class="n">A_cl_v_p</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Numerical check: A*S + B*R does not closely match A_m * A0. &quot;</span>
+            <span class="s2">&quot;The plant may be poorly conditioned.&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span>
+        <span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 5. Compute T = t0 · A0</span>
+    <span class="c1">#</span>
+    <span class="c1">#    H_ry = B·T / (A·S + B·R) = B·(t0·A0) / (A_m·A0) = t0·B / A_m</span>
+    <span class="c1">#    The A0 factor in T cancels with the A0 factor in the denominator A_cl_total,</span>
+    <span class="c1">#    so the reference-to-output dynamics are governed by A_m alone.</span>
+    <span class="c1">#    DC gain condition: t0 · B(1) / A_m(1) = 1  =&gt;  t0 = A_m(1) / B(1)</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">B1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">Am1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">A_m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">Am1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;A_cl has a root at z=1; unity DC gain cannot be enforced. Using T = A0.&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span>
+        <span class="p">)</span>
+        <span class="n">T_coeffs</span> <span class="o">=</span> <span class="n">A0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">Am1</span> <span class="o">/</span> <span class="n">B1</span>
+        <span class="n">T_coeffs</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">*</span> <span class="n">A0</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 7. Transfer functions</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">S_tf</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tf</span><span class="p">(</span><span class="n">S_coeffs</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">R_tf</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tf</span><span class="p">(</span><span class="n">R_coeffs</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">T_tf</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tf</span><span class="p">(</span><span class="n">T_coeffs</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 8. Verification</span>
+    <span class="c1"># Use A_cl_total directly for den_cl: avoids spurious leading-coefficient</span>
+    <span class="c1"># noise from algebraic cancellation of high-degree terms in A*S + B*R.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">num_cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polymul</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">T_coeffs</span><span class="p">)</span>
+    <span class="n">den_cl</span> <span class="o">=</span> <span class="n">A_cl_total</span>   <span class="c1"># == A_m * A0 by construction</span>
+    <span class="n">H_cl</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tf</span><span class="p">(</span><span class="n">num_cl</span><span class="p">,</span> <span class="n">den_cl</span><span class="p">,</span> <span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- RST synthesis complete ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;S:&quot;</span><span class="p">,</span> <span class="n">S_coeffs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R:&quot;</span><span class="p">,</span> <span class="n">R_coeffs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;T:&quot;</span><span class="p">,</span> <span class="n">T_coeffs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Exact closed-loop transfer function enforced by R,S,T:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numerator coefficients:&quot;</span><span class="p">,</span> <span class="n">num_cl</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Denominator coefficients:&quot;</span><span class="p">,</span> <span class="n">den_cl</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">H_cl</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">den_cl</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Closed-loop DC gain: undefined (pole at z=1)&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Closed-loop DC gain:&quot;</span><span class="p">,</span> <span class="n">ct</span><span class="o">.</span><span class="n">dcgain</span><span class="p">(</span><span class="n">H_cl</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Closed-loop zeros (z):&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">H_cl</span><span class="o">.</span><span class="n">num_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Closed-loop poles (z):&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">H_cl</span><span class="o">.</span><span class="n">den_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pole radii:           &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">H_cl</span><span class="o">.</span><span class="n">den_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])))</span>
+    <span class="k">return</span> <span class="n">S_tf</span><span class="p">,</span> <span class="n">R_tf</span><span class="p">,</span> <span class="n">T_tf</span><span class="p">,</span> <span class="n">H_cl</span></div>
+
+
+
+<div class="viewcode-block" id="Compute_Desired_RST">
+<a class="viewcode-back" href="../../api/utils.html#Utils.computeRST.Compute_Desired_RST">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Compute_Desired_RST</span><span class="p">(</span><span class="n">Desired_TF</span><span class="p">,</span> <span class="n">plant_discrete_tf</span><span class="p">,</span> <span class="n">Integrator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">A0</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;RST synthesis from a fully specified desired closed-loop transfer function.</span>
+
+<span class="sd">    Computes S, R, T using the Landau observer polynomial formulation.  The algorithm:</span>
+
+<span class="sd">    1. Solve the *reduced* Diophantine for S&#39;, R&#39;</span>
+<span class="sd">       (where ``A_m = Desired_TF.den`` and ``A_eff = A*(z-1)`` when ``Integrator=True``)::</span>
+
+<span class="sd">           A_eff(z) · S&#39;(z) + B(z) · R&#39;(z) = A_m(z)</span>
+
+<span class="sd">    2. Apply the observer polynomial factor (``T&#39; = B_cl / B``) so that A0 cancels from</span>
+<span class="sd">       the closed-loop reference-to-output path::</span>
+
+<span class="sd">           S = A0 · S&#39;,   R = A0 · R&#39;,   T = A0 · T&#39;</span>
+<span class="sd">           H_cl = B·T / (A·S + B·R) = B_cl / A_m = Desired_TF</span>
+
+<span class="sd">    Degree constraint: ``Desired_TF.den`` (the dominant polynomial A_m) must satisfy</span>
+<span class="sd">    ``deg(A_m) &lt;= deg(A) + deg(B)``.  A0 may have any degree; it does not consume this</span>
+<span class="sd">    budget.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Desired_TF (ct.TransferFunction): Desired closed-loop TF B_cl(z) / A_m(z)</span>
+<span class="sd">            *without* the observer polynomial.  The denominator specifies dominant poles;</span>
+<span class="sd">            A0 is appended separately.  The numerator B_cl must be exactly divisible by B.</span>
+<span class="sd">        plant_discrete_tf (ct.TransferFunction): Discrete plant transfer function B(z)/A(z).</span>
+<span class="sd">        Integrator (bool, optional): If True, forces S to contain (z-1).  Defaults to True.</span>
+<span class="sd">        A0 (array-like or None, optional): Observer polynomial; roots are additional</span>
+<span class="sd">            closed-loop poles that cancel from H_cl.  Pass None for no observer poles.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple:</span>
+<span class="sd">            S_tf, R_tf, T_tf (ct.TransferFunction): Polynomial TFs with denominator 1.</span>
+<span class="sd">            H_cl (ct.TransferFunction): Verified closed-loop TF ≈ Desired_TF.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If degree constraint violated, A_m * A0 has unstable poles, or</span>
+<span class="sd">            B_cl is not exactly divisible by B.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 1. Extract and normalise polynomials</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">den</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">num</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">A_m_raw</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">Desired_TF</span><span class="o">.</span><span class="n">den</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">B_cl_raw</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">Desired_TF</span><span class="o">.</span><span class="n">num</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># Normalise: make A monic and scale B proportionally to preserve B/A</span>
+    <span class="n">a_lead</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">/</span> <span class="n">a_lead</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">B</span> <span class="o">/</span> <span class="n">a_lead</span>
+
+    <span class="c1"># Normalise desired denominator and scale B_cl proportionally to preserve B_cl/A_m</span>
+    <span class="n">m_lead</span> <span class="o">=</span> <span class="n">A_m_raw</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">A_m</span> <span class="o">=</span> <span class="n">A_m_raw</span> <span class="o">/</span> <span class="n">m_lead</span>
+    <span class="n">B_cl</span> <span class="o">=</span> <span class="n">B_cl_raw</span> <span class="o">/</span> <span class="n">m_lead</span>
+
+    <span class="n">A0</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A0</span> <span class="k">if</span> <span class="n">A0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+    <span class="n">A0</span> <span class="o">=</span> <span class="n">A0</span> <span class="o">/</span> <span class="n">A0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Total desired characteristic polynomial: A_m * A0</span>
+    <span class="n">A_cl_total</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A_m</span><span class="p">,</span> <span class="n">A0</span><span class="p">))</span>
+
+    <span class="n">deg_A</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">deg_B</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">INT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+
+    <span class="c1"># ============================================================================</span>
+    <span class="c1"># 2. Controller structure orders (same logic as Compute_Denominator_Matching_RST)</span>
+    <span class="c1"># ============================================================================</span>
+    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+        <span class="n">deg_S_tilde</span> <span class="o">=</span> <span class="n">deg_B</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">deg_S_tilde</span> <span class="o">=</span> <span class="n">deg_B</span>
+    <span class="n">deg_R</span> <span class="o">=</span> <span class="n">deg_A</span>
+    <span class="n">nS</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">deg_S_tilde</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">nR</span> <span class="o">=</span> <span class="n">deg_R</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># ============================================================================</span>
+    <span class="c1"># 3. Build reduced Diophantine:  A_eff · S_tilde&#39; + B · R&#39; = A_m</span>
+    <span class="c1"># ============================================================================</span>
+    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+        <span class="n">AS</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">INT</span><span class="p">),</span> <span class="n">nS</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">AS</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">nS</span><span class="p">)</span>
+
+    <span class="n">BR</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">nR</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">AS</span><span class="p">,</span> <span class="n">BR</span><span class="p">])</span>
+
+    <span class="n">target_len</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">target_len</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Desired denominator A_m (degree </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">) exceeds the system capacity &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;(max degree </span><span class="si">{</span><span class="n">target_len</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">). Reduce the desired TF denominator degree. &quot;</span>
+            <span class="s2">&quot;A0 observer poles do not consume this budget.&quot;</span>
+        <span class="p">)</span>
+    <span class="n">A_m_padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">target_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)),</span> <span class="n">A_m</span><span class="p">]</span>
+
+    <span class="c1"># Stability check on total polynomial</span>
+    <span class="n">poles_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">poles_total</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;A_m * A0 contains poles outside the unit circle. &quot;</span>
+            <span class="s2">&quot;Ensure all roots of A_m and A0 are inside the unit disk.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">poles_total</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;A_m * A0 contains a pole on the unit circle. &quot;</span>
+            <span class="s2">&quot;Closed-loop response may be marginally stable.&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span>
+        <span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 4. Solve reduced Diophantine for S_tilde&#39;, R&#39;</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">theta</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">A_m_padded</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">S_tilde_prime</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[:</span><span class="n">nS</span><span class="p">]</span>
+    <span class="n">R_prime</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="n">nS</span><span class="p">:]</span>
+
+    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+        <span class="n">S_prime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">S_tilde_prime</span><span class="p">,</span> <span class="n">INT</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">S_prime</span> <span class="o">=</span> <span class="n">S_tilde_prime</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 5. Observer polynomial factorisation:  S = A0 · S&#39;,  R = A0 · R&#39;</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">S_coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A0</span><span class="p">,</span> <span class="n">S_prime</span><span class="p">)</span>
+    <span class="n">R_coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A0</span><span class="p">,</span> <span class="n">R_prime</span><span class="p">)</span>
+
+    <span class="c1"># Verify Diophantine: A*S + B*R = A_cl_total</span>
+    <span class="n">den_check</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyadd</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polymul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">S_coeffs</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">polymul</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">R_coeffs</span><span class="p">))</span>
+    <span class="n">A_cl_v</span> <span class="o">=</span> <span class="n">A_cl_total</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">den_check</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_v</span><span class="p">))</span>
+    <span class="n">den_check_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pad</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">den_check</span><span class="p">)),</span> <span class="n">den_check</span><span class="p">]</span>
+    <span class="n">A_cl_v_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pad</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_v</span><span class="p">)),</span> <span class="n">A_cl_v</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">den_check_p</span><span class="p">,</span> <span class="n">A_cl_v_p</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;RST synthesis failed: A*S + B*R does not equal A_m * A0. &quot;</span>
+            <span class="s2">&quot;Check plant conditioning or degree constraints.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 6. Compute T = A0 · T&#39;  where  T&#39; = B_cl / B</span>
+    <span class="c1">#</span>
+    <span class="c1">#    H_cl = B·T / (A·S + B·R) = B·(A0·T&#39;) / (A_m·A0) = B·T&#39;/A_m = B_cl/A_m</span>
+    <span class="c1">#    A0 poles cancel from the closed-loop reference-to-output path.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">quotient</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polydiv</span><span class="p">(</span><span class="n">B_cl</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+    <span class="n">remainder</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trim_zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">remainder</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remainder</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">remainder</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Desired numerator B_cl is not exactly divisible by B. &quot;</span>
+            <span class="s2">&quot;Adjust the desired transfer function or use a different plant model.&quot;</span>
+        <span class="p">)</span>
+    <span class="n">T_prime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trim_zeros</span><span class="p">(</span><span class="n">quotient</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">T_prime</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">T_prime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">])</span>
+    <span class="n">T_coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A0</span><span class="p">,</span> <span class="n">T_prime</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 7. Transfer functions</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">S_tf</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tf</span><span class="p">(</span><span class="n">S_coeffs</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">R_tf</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tf</span><span class="p">(</span><span class="n">R_coeffs</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">T_tf</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tf</span><span class="p">(</span><span class="n">T_coeffs</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># 8. Verification</span>
+    <span class="c1"># Use A_cl_total directly for den_cl: avoids spurious leading-coefficient</span>
+    <span class="c1"># noise from algebraic cancellation of high-degree terms in A*S + B*R.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">num_cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polymul</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">T_coeffs</span><span class="p">)</span>
+    <span class="n">den_cl</span> <span class="o">=</span> <span class="n">A_cl_total</span>   <span class="c1"># == A_m * A0 by construction</span>
+    <span class="n">H_cl</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">tf</span><span class="p">(</span><span class="n">num_cl</span><span class="p">,</span> <span class="n">den_cl</span><span class="p">,</span> <span class="n">plant_discrete_tf</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- RST synthesis complete ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;S:&quot;</span><span class="p">,</span> <span class="n">S_coeffs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R:&quot;</span><span class="p">,</span> <span class="n">R_coeffs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;T:&quot;</span><span class="p">,</span> <span class="n">T_coeffs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Closed-loop TF check:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">H_cl</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DC gain:&quot;</span><span class="p">,</span> <span class="n">ct</span><span class="o">.</span><span class="n">dcgain</span><span class="p">(</span><span class="n">H_cl</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Closed-loop poles (z):&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">H_cl</span><span class="o">.</span><span class="n">den_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pole radii:           &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">H_cl</span><span class="o">.</span><span class="n">den_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])))</span>
+    <span class="k">return</span> <span class="n">S_tf</span><span class="p">,</span> <span class="n">R_tf</span><span class="p">,</span> <span class="n">T_tf</span><span class="p">,</span> <span class="n">H_cl</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

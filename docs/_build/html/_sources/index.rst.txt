@@ -1,0 +1,21 @@
+PythonDiscreteControl — Documentation
+======================================
+
+Projet Python dédié à l'analyse, la conception et la simulation de systèmes de
+commande numériques. Le système étudié est la **balle sur poutre** modélisée comme
+un double intégrateur :math:`H/s^2`. Deux stratégies de commande sont comparées :
+un **correcteur PID discret** et un **régulateur RST polynomial**.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contenu
+
+   overview
+   api/modules
+
+
+Indices
+-------
+
+* :ref:`genindex`
+* :ref:`modindex`

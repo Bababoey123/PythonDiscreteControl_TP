@@ -1,3 +1,15 @@
+"""Low-level discrete and hybrid plant simulators.
+
+Three simulators are provided:
+
+* ``TFSimulator``        — discrete transfer function stepped via a difference equation.
+* ``HybridSim``         — continuous linear plant (state-space) driven by a discrete controller,
+                          integrated with RK4 at 1 ms.
+* ``NonLinearHybridSim``— same structure but with a nonlinear ODE from ``BaseNonlinearModel``.
+
+Runner functions that wire simulators to controllers live in ``Simulation/runners.py``.
+"""
+
 import numpy as np
 import control as ct
 
@@ -8,9 +20,12 @@ from Metrics_Plotting.SimLog import SimLog
 class TFSimulator:
     """Simulates a discrete transfer function step-by-step using its difference equation.
 
-    Given a transfer function B(z)/A(z), each call to ``step`` advances the recursion:
+    Given a transfer function B(z)/A(z), each call to ``step`` advances the recursion::
+
         a0·y[k] = b0·u[k] + b1·u[k-1] + … − a1·y[k-1] − a2·y[k-2] − …
 
+    Used for both plant simulation (open-loop TF) and internally by ``DiscretePID``
+    and ``RSTController`` for their own difference-equation recursion.
     """
 
     def __init__(self, tf, X_0):

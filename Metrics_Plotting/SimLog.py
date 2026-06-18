@@ -1,3 +1,10 @@
+"""Lightweight data logger for simulation trajectories.
+
+``SimLog`` accumulates (t, y, u) samples appended by runner functions and
+simulator loops. After a simulation run the three lists can be passed directly
+to ``Metrics`` or ``Plotting``.
+"""
+
 import numpy as np
 
 
