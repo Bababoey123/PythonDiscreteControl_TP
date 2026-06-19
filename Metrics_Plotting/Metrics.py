@@ -68,7 +68,7 @@ class Metrics:
         ess = reference - np.mean(y_arr[ss_mask])
 
         print(f"Dépassement :          {overshoot:.1f} %")
-        print(f"Temps de montée :      {rise_time:.3f} s  (10 %→90 %)")
+        print(f"Temps de montée :      {rise_time:.3f} s  (10 %=>90 %)")
         print(f"Temps d'établissement :     {settling_time:.3f} s  (bande ±10 %)")
 
     def Stability(self, TF: ct.TransferFunction):

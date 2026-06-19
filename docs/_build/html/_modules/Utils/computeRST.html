@@ -209,39 +209,21 @@
     <span class="n">INT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
 
     <span class="c1"># ============================================================================</span>
-    <span class="c1"># 2. Choose controller structure orders (determined by plant, not by A0)</span>
+    <span class="c1"># 2. Guard: constant numerator + integrator is unsimulable</span>
     <span class="c1">#</span>
-    <span class="c1"># The Diophantine is solved for S&#39;, R&#39; of the same degrees as without A0.</span>
-    <span class="c1"># A0 is then multiplied in after the solve (Landau two-step formulation).</span>
-    <span class="c1">#</span>
-    <span class="c1"># NON-INTEGRATOR:  deg(S&#39;) = deg(B),  deg(R&#39;) = deg(A)</span>
-    <span class="c1"># INTEGRATOR:      S&#39; = (z-1)·S_tilde&#39;,  deg(S_tilde&#39;) = deg(B)-1</span>
+    <span class="c1"># When deg(B)=0 and Integrator=True, the Sylvester matrix fails (row-count</span>
+    <span class="c1"># mismatch), and the only closed-form solution forces R[0] = -1/B[0].</span>
+    <span class="c1"># Because the plant implements y[k] = B[0]*u[k] + ..., the control law</span>
+    <span class="c1"># creates an algebraic loop with coefficient 1 + B[0]*R[0] = 0 —</span>
+    <span class="c1"># the simulation is always singular regardless of pole placement.</span>
     <span class="c1"># ============================================================================</span>
-    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
-        <span class="n">deg_S_tilde</span> <span class="o">=</span> <span class="n">deg_B</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">deg_S_tilde</span> <span class="o">=</span> <span class="n">deg_B</span>
-    <span class="n">deg_R</span> <span class="o">=</span> <span class="n">deg_A</span>
-    <span class="n">nS</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">deg_S_tilde</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">nR</span> <span class="o">=</span> <span class="n">deg_R</span> <span class="o">+</span> <span class="mi">1</span>
-
-    <span class="c1"># ============================================================================</span>
-    <span class="c1"># 3. Build reduced Diophantine:  A_eff · S_tilde&#39; + B · R&#39; = A_m</span>
-    <span class="c1"># ============================================================================</span>
-    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
-        <span class="n">AS</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">INT</span><span class="p">),</span> <span class="n">nS</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">AS</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">nS</span><span class="p">)</span>
-
-    <span class="n">BR</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">nR</span><span class="p">)</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">AS</span><span class="p">,</span> <span class="n">BR</span><span class="p">])</span>
-
-    <span class="c1"># Degree constraint: A_m (dominant polynomial) must fit in the Diophantine system.</span>
-    <span class="n">target_len</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">target_len</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">Integrator</span> <span class="ow">and</span> <span class="n">deg_B</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Dominant polynomial A_cl (degree </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">) exceeds the system capacity &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;(max degree </span><span class="si">{</span><span class="n">target_len</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> for this plant/structure). Reduce A_cl degree.&quot;</span>
+            <span class="s2">&quot;RST synthesis with Integrator=True is not supported for plants with a &quot;</span>
+            <span class="s2">&quot;constant numerator (deg(B)=0). The only valid solution forces &quot;</span>
+            <span class="s2">&quot;R[0] = -1/B[0], which creates a degenerate algebraic loop &quot;</span>
+            <span class="s2">&quot;(1 + B[0]*R[0] = 0) in every simulation. &quot;</span>
+            <span class="s2">&quot;Use Integrator=False, or redesign with a plant that has deg(B) &gt;= 1.&quot;</span>
         <span class="p">)</span>
 
     <span class="c1"># Stability check on the total characteristic polynomial A_m * A0</span>
@@ -258,20 +240,37 @@
             <span class="ne">UserWarning</span>
         <span class="p">)</span>
 
-    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># ============================================================================</span>
+    <span class="c1"># 3. Choose controller structure orders and solve the Diophantine</span>
+    <span class="c1">#</span>
+    <span class="c1"># NON-INTEGRATOR:  deg(S&#39;) = deg(B),   deg(R&#39;) = deg(A)</span>
+    <span class="c1"># INTEGRATOR:      S&#39; = (z-1)·S_tilde&#39;, deg(S_tilde&#39;) = deg(B)-1</span>
+    <span class="c1"># ============================================================================</span>
+    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+        <span class="n">deg_S_tilde</span> <span class="o">=</span> <span class="n">deg_B</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">deg_S_tilde</span> <span class="o">=</span> <span class="n">deg_B</span>
+    <span class="n">deg_R</span> <span class="o">=</span> <span class="n">deg_A</span>
+    <span class="n">nS</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">deg_S_tilde</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">nR</span> <span class="o">=</span> <span class="n">deg_R</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">Integrator</span><span class="p">:</span>
+        <span class="n">AS</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">INT</span><span class="p">),</span> <span class="n">nS</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">AS</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">nS</span><span class="p">)</span>
+
+    <span class="n">BR</span> <span class="o">=</span> <span class="n">conv_matrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">nR</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">AS</span><span class="p">,</span> <span class="n">BR</span><span class="p">])</span>
+
+    <span class="n">target_len</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">target_len</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Dominant polynomial A_cl (degree </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">) exceeds the system capacity &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;(max degree </span><span class="si">{</span><span class="n">target_len</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> for this plant/structure). Reduce A_cl degree.&quot;</span>
+        <span class="p">)</span>
+
     <span class="c1"># Dead-beat fill: if A_cl_total is shorter than target_len, append trailing</span>
-    <span class="c1"># zeros (= multiply by z^slack, adding poles at z=0).</span>
-    <span class="c1">#</span>
-    <span class="c1"># WHY: padding with LEADING zeros forces the first Diophantine equation to</span>
-    <span class="c1"># &quot;s0 + b·r0 = 0&quot;, giving s0 &lt; 0 and inverting the 1/S filter sign →</span>
-    <span class="c1"># simulation diverges.  TRAILING zeros shift the polynomial left without</span>
-    <span class="c1"># touching the leading coefficient, so s0 = 1 - b·r0 &gt; 0 is preserved.</span>
-    <span class="c1">#</span>
-    <span class="c1"># This situation arises when A_m has lower degree than the system capacity</span>
-    <span class="c1"># (e.g. double integrator + Integrator=True + A0=None: capacity degree 3,</span>
-    <span class="c1"># A_m degree 2 → slack = 1).  The extra z=0 pole decays in one step and</span>
-    <span class="c1"># does not meaningfully affect the transient response.</span>
-    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># zeros (poles at z=0) so the leading coefficient of the RHS stays positive.</span>
     <span class="n">slack</span> <span class="o">=</span> <span class="n">target_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">slack</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">A_cl_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">A_cl_total</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">slack</span><span class="p">)]</span>
@@ -283,25 +282,7 @@
             <span class="ne">UserWarning</span>
         <span class="p">)</span>
 
-    <span class="c1"># ------------------------------------------------------------</span>
-    <span class="c1"># 4. Solve the Diophantine.</span>
-    <span class="c1">#</span>
-    <span class="c1">#    Two strategies depending on whether A_cl_total fits in the system:</span>
-    <span class="c1">#</span>
-    <span class="c1">#    DIRECT (preferred when A_cl_total fits):</span>
-    <span class="c1">#      Target = A_cl_total = A_m * A0.  The leading coefficient of the target is</span>
-    <span class="c1">#      positive (A_m and A0 are monic), so S_tilde[0] &gt; 0 and S[0] &gt; 0.  A positive</span>
-    <span class="c1">#      S[0] is required for the 1/S filter in RSTController to drive the plant in the</span>
-    <span class="c1">#      correct direction.  Solving against A_m alone (with a leading-zero pad) forces</span>
-    <span class="c1">#      S_tilde[0] &lt; 0, inverts the 1/S gain, and causes the simulation to diverge.</span>
-    <span class="c1">#</span>
-    <span class="c1">#    TWO-STEP LANDAU (fallback when A_cl_total exceeds the system):</span>
-    <span class="c1">#      Target = A_m, then S = A0 * S&#39;, R = A0 * R&#39;.  Required when A_m is at the</span>
-    <span class="c1">#      system degree limit and A_cl_total would overflow it.  For most non-integrating</span>
-    <span class="c1">#      plants A_m exactly fills target_len, ensuring S&#39;[0] &gt; 0.</span>
-    <span class="c1"># ------------------------------------------------------------</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">target_len</span><span class="p">:</span>
-        <span class="c1"># Direct solve: A_cl_total fits — target the full polynomial.</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Direct Solve Used&#39;</span><span class="p">)</span>
         <span class="n">rhs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">target_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_cl_total</span><span class="p">)),</span> <span class="n">A_cl_total</span><span class="p">]</span>
         <span class="n">theta</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -312,7 +293,6 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">S_coeffs</span> <span class="o">=</span> <span class="n">S_tilde</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Two-step Landau: target A_m, then apply A0 factorisation.</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Two step used &#39;</span><span class="p">)</span>
         <span class="n">A_m_padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">target_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_m</span><span class="p">)),</span> <span class="n">A_m</span><span class="p">]</span>
         <span class="n">theta</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">A_m_padded</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>

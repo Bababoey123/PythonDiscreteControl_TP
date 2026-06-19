@@ -129,39 +129,21 @@ def Compute_Denominator_Matching_RST(A_cl: list, plant_discrete_tf, Integrator=T
     INT = np.array([1.0, -1.0])
 
     # ============================================================================
-    # 2. Choose controller structure orders (determined by plant, not by A0)
+    # 2. Guard: constant numerator + integrator is unsimulable
     #
-    # The Diophantine is solved for S', R' of the same degrees as without A0.
-    # A0 is then multiplied in after the solve (Landau two-step formulation).
-    #
-    # NON-INTEGRATOR:  deg(S') = deg(B),  deg(R') = deg(A)
-    # INTEGRATOR:      S' = (z-1)·S_tilde',  deg(S_tilde') = deg(B)-1
+    # When deg(B)=0 and Integrator=True, the Sylvester matrix fails (row-count
+    # mismatch), and the only closed-form solution forces R[0] = -1/B[0].
+    # Because the plant implements y[k] = B[0]*u[k] + ..., the control law
+    # creates an algebraic loop with coefficient 1 + B[0]*R[0] = 0 —
+    # the simulation is always singular regardless of pole placement.
     # ============================================================================
-    if Integrator:
-        deg_S_tilde = deg_B - 1
-    else:
-        deg_S_tilde = deg_B
-    deg_R = deg_A
-    nS = max(deg_S_tilde + 1, 1)
-    nR = deg_R + 1
-
-    # ============================================================================
-    # 3. Build reduced Diophantine:  A_eff · S_tilde' + B · R' = A_m
-    # ============================================================================
-    if Integrator:
-        AS = conv_matrix(np.convolve(A, INT), nS)
-    else:
-        AS = conv_matrix(A, nS)
-
-    BR = conv_matrix(B, nR)
-    M = np.hstack([AS, BR])
-
-    # Degree constraint: A_m (dominant polynomial) must fit in the Diophantine system.
-    target_len = M.shape[0]
-    if len(A_m) > target_len:
+    if Integrator and deg_B == 0:
         raise ValueError(
-            f"Dominant polynomial A_cl (degree {len(A_m) - 1}) exceeds the system capacity "
-            f"(max degree {target_len - 1} for this plant/structure). Reduce A_cl degree."
+            "RST synthesis with Integrator=True is not supported for plants with a "
+            "constant numerator (deg(B)=0). The only valid solution forces "
+            "R[0] = -1/B[0], which creates a degenerate algebraic loop "
+            "(1 + B[0]*R[0] = 0) in every simulation. "
+            "Use Integrator=False, or redesign with a plant that has deg(B) >= 1."
         )
 
     # Stability check on the total characteristic polynomial A_m * A0
@@ -178,20 +160,37 @@ def Compute_Denominator_Matching_RST(A_cl: list, plant_discrete_tf, Integrator=T
             UserWarning
         )
 
-    # ------------------------------------------------------------
+    # ============================================================================
+    # 3. Choose controller structure orders and solve the Diophantine
+    #
+    # NON-INTEGRATOR:  deg(S') = deg(B),   deg(R') = deg(A)
+    # INTEGRATOR:      S' = (z-1)·S_tilde', deg(S_tilde') = deg(B)-1
+    # ============================================================================
+    if Integrator:
+        deg_S_tilde = deg_B - 1
+    else:
+        deg_S_tilde = deg_B
+    deg_R = deg_A
+    nS = max(deg_S_tilde + 1, 1)
+    nR = deg_R + 1
+
+    if Integrator:
+        AS = conv_matrix(np.convolve(A, INT), nS)
+    else:
+        AS = conv_matrix(A, nS)
+
+    BR = conv_matrix(B, nR)
+    M = np.hstack([AS, BR])
+
+    target_len = M.shape[0]
+    if len(A_m) > target_len:
+        raise ValueError(
+            f"Dominant polynomial A_cl (degree {len(A_m) - 1}) exceeds the system capacity "
+            f"(max degree {target_len - 1} for this plant/structure). Reduce A_cl degree."
+        )
+
     # Dead-beat fill: if A_cl_total is shorter than target_len, append trailing
-    # zeros (= multiply by z^slack, adding poles at z=0).
-    #
-    # WHY: padding with LEADING zeros forces the first Diophantine equation to
-    # "s0 + b·r0 = 0", giving s0 < 0 and inverting the 1/S filter sign →
-    # simulation diverges.  TRAILING zeros shift the polynomial left without
-    # touching the leading coefficient, so s0 = 1 - b·r0 > 0 is preserved.
-    #
-    # This situation arises when A_m has lower degree than the system capacity
-    # (e.g. double integrator + Integrator=True + A0=None: capacity degree 3,
-    # A_m degree 2 → slack = 1).  The extra z=0 pole decays in one step and
-    # does not meaningfully affect the transient response.
-    # ------------------------------------------------------------
+    # zeros (poles at z=0) so the leading coefficient of the RHS stays positive.
     slack = target_len - len(A_cl_total)
     if slack > 0:
         A_cl_total = np.r_[A_cl_total, np.zeros(slack)]
@@ -203,25 +202,7 @@ def Compute_Denominator_Matching_RST(A_cl: list, plant_discrete_tf, Integrator=T
             UserWarning
         )
 
-    # ------------------------------------------------------------
-    # 4. Solve the Diophantine.
-    #
-    #    Two strategies depending on whether A_cl_total fits in the system:
-    #
-    #    DIRECT (preferred when A_cl_total fits):
-    #      Target = A_cl_total = A_m * A0.  The leading coefficient of the target is
-    #      positive (A_m and A0 are monic), so S_tilde[0] > 0 and S[0] > 0.  A positive
-    #      S[0] is required for the 1/S filter in RSTController to drive the plant in the
-    #      correct direction.  Solving against A_m alone (with a leading-zero pad) forces
-    #      S_tilde[0] < 0, inverts the 1/S gain, and causes the simulation to diverge.
-    #
-    #    TWO-STEP LANDAU (fallback when A_cl_total exceeds the system):
-    #      Target = A_m, then S = A0 * S', R = A0 * R'.  Required when A_m is at the
-    #      system degree limit and A_cl_total would overflow it.  For most non-integrating
-    #      plants A_m exactly fills target_len, ensuring S'[0] > 0.
-    # ------------------------------------------------------------
     if len(A_cl_total) <= target_len:
-        # Direct solve: A_cl_total fits — target the full polynomial.
         print('Direct Solve Used')
         rhs = np.r_[np.zeros(target_len - len(A_cl_total)), A_cl_total]
         theta, *_ = np.linalg.lstsq(M, rhs, rcond=None)
@@ -232,7 +213,6 @@ def Compute_Denominator_Matching_RST(A_cl: list, plant_discrete_tf, Integrator=T
         else:
             S_coeffs = S_tilde
     else:
-        # Two-step Landau: target A_m, then apply A0 factorisation.
         print('Two step used ')
         A_m_padded = np.r_[np.zeros(target_len - len(A_m)), A_m]
         theta, *_ = np.linalg.lstsq(M, A_m_padded, rcond=None)
