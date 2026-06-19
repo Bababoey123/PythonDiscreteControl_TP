@@ -189,19 +189,10 @@ def Compute_Denominator_Matching_RST(A_cl: list, plant_discrete_tf, Integrator=T
             f"(max degree {target_len - 1} for this plant/structure). Reduce A_cl degree."
         )
 
-    # Dead-beat fill: if A_cl_total is shorter than target_len, append trailing
-    # zeros (poles at z=0) so the leading coefficient of the RHS stays positive.
-    slack = target_len - len(A_cl_total)
-    if slack > 0:
-        A_cl_total = np.r_[A_cl_total, np.zeros(slack)]
-        warnings.warn(
-            f"A_m * A0 (degree {len(A_cl_total) - 1 - slack}) is {slack} degree(s) below "
-            f"the Diophantine system capacity (degree {target_len - 1}). "
-            f"{slack} deadbeat pole(s) at z=0 added automatically. "
-            "Pass an explicit A0 to control the placement of these poles.",
-            UserWarning
-        )
-
+    # Solvability condition: deg(A·S) = deg(B·R) = deg(A0·A_m)
+    # The Sylvester system is square (unique solution) only when the RHS polynomial
+    # has exactly the same degree as A·S and B·R.  A shorter RHS introduces free
+    # degrees that make the solution non-unique; a longer RHS makes it overdetermined.
     if len(A_cl_total) <= target_len:
         print('Direct Solve Used')
         rhs = np.r_[np.zeros(target_len - len(A_cl_total)), A_cl_total]
